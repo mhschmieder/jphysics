@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxGuiToolkit Library
+ * This file is part of the PhysicsToolkit Library
  *
  * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * PhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxguitoolkit
+ * Project: https://github.com/mhschmieder/physicstoolkit
  */
 package com.mhschmieder.physicstoolkit;
 
