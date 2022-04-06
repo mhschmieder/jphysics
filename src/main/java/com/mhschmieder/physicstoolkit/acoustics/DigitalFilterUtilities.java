@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.physicstoolkit.acoustics;
 
-import com.mhschmieder.commonstoolkit.lang.Complex;
-import com.mhschmieder.commonstoolkit.math.MathConstants;
+import com.mhschmieder.mathtoolkit.Complex;
+import com.mhschmieder.mathtoolkit.MathConstants;
 
 /**
  * General utilities for working with frequency signals in the digital domain.

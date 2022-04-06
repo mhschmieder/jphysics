@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.physicstoolkit.acoustics;
 
-import com.mhschmieder.commonstoolkit.math.MathConstants;
+import com.mhschmieder.mathtoolkit.MathConstants;
 
 /**
  * This is an enumeration of possible resolution values for an SPL Palette. It

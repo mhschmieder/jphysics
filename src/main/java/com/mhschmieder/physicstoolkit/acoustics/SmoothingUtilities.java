@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.physicstoolkit.acoustics;
 
-import com.mhschmieder.commonstoolkit.math.MathConstants;
-import com.mhschmieder.commonstoolkit.math.MathExt;
+import com.mhschmieder.mathtoolkit.MathConstants;
+import com.mhschmieder.mathtoolkit.MathExt;
 
 public final class SmoothingUtilities extends Object {
 

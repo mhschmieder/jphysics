@@ -32,8 +32,8 @@ package com.mhschmieder.physicstoolkit;
 
 import java.text.NumberFormat;
 
-import com.mhschmieder.commonstoolkit.math.MathConstants;
 import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
+import com.mhschmieder.mathtoolkit.MathConstants;
 
 /**
  * Utility methods for physics; primarily consisting of angle methodologies.

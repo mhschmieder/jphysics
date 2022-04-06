@@ -32,7 +32,7 @@ package com.mhschmieder.physicstoolkit;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import com.mhschmieder.commonstoolkit.math.MathUtilities;
+import com.mhschmieder.mathtoolkit.MathUtilities;
 
 /**
  * The coordinate/axis convention is the same as elsewhere in rigging:

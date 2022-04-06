@@ -41,6 +41,12 @@
     <dependencies>
         <dependency>
             <groupId>com.mhschmieder</groupId>
+            <artifactId>mathtoolkit</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mhschmieder</groupId>
             <artifactId>commonstoolkit</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>

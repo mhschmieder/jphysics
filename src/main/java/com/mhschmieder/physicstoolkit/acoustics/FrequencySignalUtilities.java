@@ -32,9 +32,9 @@ package com.mhschmieder.physicstoolkit.acoustics;
 
 import java.text.NumberFormat;
 
-import com.mhschmieder.commonstoolkit.lang.Complex;
-import com.mhschmieder.commonstoolkit.math.MathConstants;
 import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
+import com.mhschmieder.mathtoolkit.Complex;
+import com.mhschmieder.mathtoolkit.MathConstants;
 
 /**
  * General utilities for working with frequency signals in the analog domain.
