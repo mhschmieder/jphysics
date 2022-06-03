@@ -24,5 +24,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/commonstoolkit"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mathtoolkit"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
