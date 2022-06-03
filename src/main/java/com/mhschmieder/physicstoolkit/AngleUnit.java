@@ -32,7 +32,7 @@ package com.mhschmieder.physicstoolkit;
 
 import java.util.Locale;
 
-import com.mhschmieder.commonstoolkit.text.StringUtilities;
+import com.mhschmieder.commonstoolkit.lang.StringConstants;
 
 public enum AngleUnit {
     DEGREES, RADIANS;
@@ -49,7 +49,7 @@ public enum AngleUnit {
 
     @SuppressWarnings("nls")
     public static AngleUnit fromAbbreviatedString( final String angleUnitAbbreviatedString ) {
-        if ( StringUtilities.DEGREES_SYMBOL.equalsIgnoreCase( angleUnitAbbreviatedString ) ) {
+        if ( StringConstants.DEGREES_SYMBOL.equalsIgnoreCase( angleUnitAbbreviatedString ) ) {
             return DEGREES;
         }
 
@@ -73,7 +73,7 @@ public enum AngleUnit {
     public final String toAbbreviatedString() {
         switch ( this ) {
         case DEGREES:
-            return StringUtilities.DEGREES_SYMBOL;
+            return StringConstants.DEGREES_SYMBOL;
         case RADIANS:
             return " rad"; //$NON-NLS-1$
         default:

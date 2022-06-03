@@ -32,7 +32,7 @@ package com.mhschmieder.physicstoolkit;
 
 import java.util.Locale;
 
-import com.mhschmieder.commonstoolkit.text.StringUtilities;
+import com.mhschmieder.commonstoolkit.lang.StringConstants;
 
 public enum TemperatureUnit {
     KELVIN, CELSIUS, FAHRENHEIT;
@@ -52,16 +52,16 @@ public enum TemperatureUnit {
     }
 
     public static TemperatureUnit fromAbbreviatedString( final String temperatureUnitAbbreviatedString ) {
-        if ( StringUtilities.DEGREES_KELVIN.equalsIgnoreCase( temperatureUnitAbbreviatedString ) ) {
+        if ( StringConstants.DEGREES_KELVIN.equalsIgnoreCase( temperatureUnitAbbreviatedString ) ) {
             return KELVIN;
         }
 
-        if ( StringUtilities.DEGREES_CELSIUS
+        if ( StringConstants.DEGREES_CELSIUS
                 .equalsIgnoreCase( temperatureUnitAbbreviatedString ) ) {
             return CELSIUS;
         }
 
-        if ( StringUtilities.DEGREES_FAHRENHEIT
+        if ( StringConstants.DEGREES_FAHRENHEIT
                 .equalsIgnoreCase( temperatureUnitAbbreviatedString ) ) {
             return FAHRENHEIT;
         }
@@ -87,11 +87,11 @@ public enum TemperatureUnit {
     public final String toAbbreviatedString() {
         switch ( this ) {
         case KELVIN:
-            return StringUtilities.DEGREES_KELVIN;
+            return StringConstants.DEGREES_KELVIN;
         case CELSIUS:
-            return StringUtilities.DEGREES_CELSIUS;
+            return StringConstants.DEGREES_CELSIUS;
         case FAHRENHEIT:
-            return StringUtilities.DEGREES_FAHRENHEIT;
+            return StringConstants.DEGREES_FAHRENHEIT;
         default:
             final String errMessage = "Unexpected TemperatureUnit " + this; //$NON-NLS-1$
             throw new IllegalArgumentException( errMessage );
