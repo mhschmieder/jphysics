@@ -32,7 +32,7 @@ package com.mhschmieder.physicstoolkit;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import com.mhschmieder.mathtoolkit.MathUtilities;
+import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 
 /**
  * The coordinate/axis convention is the same as elsewhere in rigging:
@@ -71,7 +71,7 @@ public final class MassProperties implements MassComputable {
                            final Vector3D cogInObjectCoordinates,
                            final boolean cogValid ) {
         _weightKg = weightKg;
-        _cogInObjectCoordinates = MathUtilities.copyPoint3D( cogInObjectCoordinates );
+        _cogInObjectCoordinates = VectorUtilities.copyPoint3D( cogInObjectCoordinates );
         _cogValid = cogValid;
     }
 
