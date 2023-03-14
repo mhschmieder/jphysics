@@ -32,6 +32,8 @@ package com.mhschmieder.physicstoolkit;
 
 import java.text.NumberFormat;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
 import com.mhschmieder.mathtoolkit.MathConstants;
 
@@ -65,11 +67,11 @@ public final class PhysicsUtilities {
     public static double getNormalizedAngleRadians( final double angleRadians ) {
         double normalizedAngleRadians = angleRadians;
 
-        if ( ( normalizedAngleRadians + Math.PI ) < 0.0d ) {
+        if ( ( normalizedAngleRadians + FastMath.PI ) < 0.0d ) {
             normalizedAngleRadians += MathConstants.TWO_PI;
         }
 
-        if ( ( normalizedAngleRadians - Math.PI ) > 0.0d ) {
+        if ( ( normalizedAngleRadians - FastMath.PI ) > 0.0d ) {
             normalizedAngleRadians -= MathConstants.TWO_PI;
         }
 

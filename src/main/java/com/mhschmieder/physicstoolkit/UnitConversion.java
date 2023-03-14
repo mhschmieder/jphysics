@@ -30,6 +30,8 @@
  */
 package com.mhschmieder.physicstoolkit;
 
+import org.apache.commons.math3.util.FastMath;
+
 /**
  * The <code>UnitConversion</code> class is a container for various unit
  * conversions between common units of measurement.
@@ -239,12 +241,12 @@ public final class UnitConversion {
         double angleConverted = angle;
         if ( AngleUnit.DEGREES.equals( angleUnitOld ) ) {
             if ( AngleUnit.RADIANS.equals( angleUnitNew ) ) {
-                angleConverted = Math.toRadians( angle );
+                angleConverted = FastMath.toRadians( angle );
             }
         }
         else if ( AngleUnit.RADIANS.equals( angleUnitOld ) ) {
             if ( AngleUnit.DEGREES.equals( angleUnitNew ) ) {
-                angleConverted = Math.toDegrees( angle );
+                angleConverted = FastMath.toDegrees( angle );
             }
         }
 

@@ -32,6 +32,8 @@ package com.mhschmieder.physicstoolkit;
 
 import java.util.Locale;
 
+import org.apache.commons.math3.util.FastMath;
+
 public enum Altitude {
     LOW, MEDIUM, HIGH;
 
@@ -52,11 +54,11 @@ public enum Altitude {
     public final String toPresentationString( final DistanceUnit distanceUnit ) {
         final String distanceUnitString = distanceUnit.toCanonicalString();
 
-        final int lowAltitude = ( int ) Math
+        final int lowAltitude = ( int ) FastMath
                 .round( UnitConversion.convertDistance( PhysicsConstants.ALTITUDE_LOW_METERS,
                                                         DistanceUnit.METERS,
                                                         distanceUnit ) );
-        final int highAltitude = ( int ) Math
+        final int highAltitude = ( int ) FastMath
                 .round( UnitConversion.convertDistance( PhysicsConstants.ALTITUDE_HIGH_METERS,
                                                         DistanceUnit.METERS,
                                                         distanceUnit ) );
