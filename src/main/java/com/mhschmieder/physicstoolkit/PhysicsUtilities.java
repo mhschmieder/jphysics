@@ -32,10 +32,7 @@ package com.mhschmieder.physicstoolkit;
 
 import java.text.NumberFormat;
 
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
-import com.mhschmieder.mathtoolkit.MathConstants;
 
 /**
  * Utility methods for physics; primarily consisting of angle methodologies.
@@ -54,28 +51,6 @@ public final class PhysicsUtilities {
                 + angleUnit.toPresentationString();
 
         return formattedAngle;
-    }
-
-    /**
-     * Normalize a given angle, accounting for the counter-clockwise convention
-     * for positive angles and normalizing to the ( -180, +180 ) range.
-     *
-     * @param angleRadians
-     *            A given angle in radians
-     * @return The angle normalized to the ( -180, +180 ) range
-     */
-    public static double getNormalizedAngleRadians( final double angleRadians ) {
-        double normalizedAngleRadians = angleRadians;
-
-        if ( ( normalizedAngleRadians + FastMath.PI ) < 0.0d ) {
-            normalizedAngleRadians += MathConstants.TWO_PI;
-        }
-
-        if ( ( normalizedAngleRadians - FastMath.PI ) > 0.0d ) {
-            normalizedAngleRadians -= MathConstants.TWO_PI;
-        }
-
-        return normalizedAngleRadians;
     }
 
     public static double parseAngle( final String formattedAngle,
