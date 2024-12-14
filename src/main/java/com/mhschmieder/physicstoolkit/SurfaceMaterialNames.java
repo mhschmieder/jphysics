@@ -36,6 +36,9 @@ import java.util.List;
 /**
  * Standard surface materials as specified in acoustic textbooks, designed to
  * cover the basic range of acoustic absorption properties and other attributes.
+ * <p>
+ * TODO: Make an enumeration of Surface Materials, with "toPresentationString()"
+ *  as well as "toLegacyString()" (the latter coming from original textbook tags).
  */
 public final class SurfaceMaterialNames {
 
