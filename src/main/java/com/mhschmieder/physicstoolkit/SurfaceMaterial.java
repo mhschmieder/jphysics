@@ -31,9 +31,10 @@
 package com.mhschmieder.physicstoolkit;
 
 /**
- * An enumeration of standard surface materials as specified in acoustic textbooks, 
- * designed to cover the basic range of acoustic absorption properties and other
- * attributes, and including named materials that are composites of several layers.
+ * An enumeration of standard surface materials as specified in Harry Ferdinand, 
+ * Olson's Acoustical Engineering textbook from 1957, designed to cover the basic 
+ * range of acoustic absorption properties and other attributes, and including 
+ * named materials that are composites of several layers.
  */
 public enum SurfaceMaterial {
     ACOUSTIC_TILE_ON_RIGID_SURF_KF,
