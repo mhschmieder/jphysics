@@ -48,7 +48,7 @@ public final class PhysicsUtilities {
                                       final NumberFormat angleFormat,
                                       final AngleUnit angleUnit ) {
         final String formattedAngle = NumberFormatUtilities.formatDouble( angle, angleFormat )
-                + angleUnit.toPresentationString();
+                + angleUnit.abbreviation();
 
         return formattedAngle;
     }
@@ -58,7 +58,7 @@ public final class PhysicsUtilities {
                                      final AngleUnit angleUnit ) {
         try {
             // Fetch the presentation string representation for Angle Unit.
-            final String angleUnitString = angleUnit.toPresentationString();
+            final String angleUnitString = angleUnit.abbreviation();
 
             // Make sure to strip the Angle Unit before converting to a double.
             final int angleUnitIndex = formattedAngle.indexOf( angleUnitString );

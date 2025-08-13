@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,91 +30,58 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.util.Locale;
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+import com.mhschmieder.commonstoolkit.lang.Labeled;
 
 /**
- * The Distance Unit is the standard linear unit of measurement. It includes the
- * "Unitless" field because sometimes this is an interim value until units are
- * known, or units weren't specified but we need to track that as distinct from
- * units not initialized within the client code.
+ * An enumeration of the most relevant length units for linear distance.
+ * <p>
+ * NOTE: The labels account for the standard of leaving a space between the
+ *  numeric value and its associated unit. The utility for making a Combo Box
+ *  from an enum trims the space; other contexts need the space for separation.
+ * NOTE: The "Unitless" field is included because sometimes this is an interim
+ *  value until units are known, or units weren't specified but we need to 
+ *  track that as distinct from units not initialized within the client code.
  */
-public enum DistanceUnit {
-    UNITLESS, METERS, CENTIMETERS, MILLIMETERS, YARDS, FEET, INCHES;
+public enum DistanceUnit implements Labeled< DistanceUnit >, 
+        Abbreviated< DistanceUnit > {
+    UNITLESS( "unitless", "" ), 
+    MILLIMETERS( "millimeters", " mm" ), 
+    CENTIMETERS( "centimeters", " cm" ), 
+    METERS( "meters", " m" ), 
+    INCHES( "inches", " in" ),
+    FEET( "feet", " ft" ), 
+    YARDS( "yards", " yd" );
+    
+    private String label;
+    private String abbreviation;
+    
+    DistanceUnit( final String pLabel,
+                  final String pAbbreviation ) {
+        label = pLabel;
+        abbreviation = pAbbreviation;
+    }
+
+    public final String label() {
+        return label;
+    }
+
+    public DistanceUnit valueOfLabel( final String text ) {
+        return ( DistanceUnit ) EnumUtilities.getLabeledEnumFromLabel(
+                text, values() );
+    }
+
+    public final String abbreviation() {
+        return abbreviation;
+    }
+
+    public DistanceUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( DistanceUnit ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    }
 
     public static DistanceUnit defaultValue() {
         return METERS;
     }
-
-    public static DistanceUnit fromCanonicalString( final String distanceUnitCanonicalString ) {
-        return ( distanceUnitCanonicalString != null )
-            ? valueOf( distanceUnitCanonicalString.toUpperCase( Locale.ENGLISH ) )
-            : defaultValue();
-    }
-
-    @SuppressWarnings("nls")
-    public static DistanceUnit fromAbbreviatedString( final String distanceUnitAbbreviatedString ) {
-        // NOTE: These abbreviated values account for the standard of leaving a
-        // space between the numeric value and its associated unit.
-        if ( " m".equalsIgnoreCase( distanceUnitAbbreviatedString ) ) {
-            return METERS;
-        }
-
-        if ( " cm".equalsIgnoreCase( distanceUnitAbbreviatedString ) ) {
-            return CENTIMETERS;
-        }
-
-        if ( " mm".equalsIgnoreCase( distanceUnitAbbreviatedString ) ) {
-            return MILLIMETERS;
-        }
-
-        if ( " yd".equalsIgnoreCase( distanceUnitAbbreviatedString ) ) {
-            return YARDS;
-        }
-
-        if ( " ft".equalsIgnoreCase( distanceUnitAbbreviatedString ) ) {
-            return FEET;
-        }
-
-        if ( " in".equalsIgnoreCase( distanceUnitAbbreviatedString ) ) {
-            return INCHES;
-        }
-
-        if ( "".equalsIgnoreCase( distanceUnitAbbreviatedString ) ) {
-            return UNITLESS;
-        }
-
-        return UNITLESS;
-    }
-
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
-    }
-
-    public final String toPresentationString() {
-        return toAbbreviatedString();
-    }
-
-    @SuppressWarnings("nls")
-    public final String toAbbreviatedString() {
-        switch ( this ) {
-        case METERS:
-            return " m";
-        case CENTIMETERS:
-            return " cm";
-        case MILLIMETERS:
-            return " mm";
-        case YARDS:
-            return " yd";
-        case FEET:
-            return " ft";
-        case INCHES:
-            return " in";
-        case UNITLESS:
-            return "";
-        default:
-            final String errMessage = "Unexpected DistanceUnit " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-    }
-
 }

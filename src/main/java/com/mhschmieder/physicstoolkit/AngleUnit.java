@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,56 +30,60 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.util.Locale;
-
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+import com.mhschmieder.commonstoolkit.lang.Labeled;
 import com.mhschmieder.commonstoolkit.lang.StringConstants;
 
-public enum AngleUnit {
-    DEGREES, RADIANS;
+/**
+ * An enumeration of the most relevant angle units for angular distance.
+ * <p>
+ * NOTE: The labels account for the standard of leaving a space between the
+ *  numeric value and its associated unit. The utility for making a Combo Box
+ *  from an enum trims the space; other contexts need the space for separation.
+ * NOTE: The radians field is included because sometimes it is helpful to use
+ *  switch statements for degrees vs. radians in computational code bases,
+ *  especially when translated from other languages.
+ * NOTE: Degrees as minutes, seconds, etc., are not included here, as the main
+ *  application for such formats is in the geo space, which is in another API.
+ */
+public enum AngleUnit implements Labeled< AngleUnit >,
+        Abbreviated< AngleUnit > {
+    DEGREES( "degrees", StringConstants.DEGREES_SYMBOL ), 
+    RADIANS( "radians", " rad" );
+    
+    private String label;
+    private String abbreviation;
+    
+    AngleUnit( final String pLabel,
+               final String pAbbreviation ) {
+        label = pLabel;
+        abbreviation = pAbbreviation;
+    }
+
+    @Override
+    public final String label() {
+        return label;
+    }
+
+    @Override
+    public AngleUnit valueOfLabel( final String text ) {
+        return ( AngleUnit ) EnumUtilities.getLabeledEnumFromLabel(
+                text, values() );
+    }
+
+    @Override
+    public final String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public AngleUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( AngleUnit ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    }
 
     public static AngleUnit defaultValue() {
         return DEGREES;
     }
-
-    public static AngleUnit fromCanonicalString( final String angleUnitCanonicalString ) {
-        return ( angleUnitCanonicalString != null )
-            ? valueOf( angleUnitCanonicalString.toUpperCase( Locale.ENGLISH ) )
-            : defaultValue();
-    }
-
-    @SuppressWarnings("nls")
-    public static AngleUnit fromAbbreviatedString( final String angleUnitAbbreviatedString ) {
-        if ( StringConstants.DEGREES_SYMBOL.equalsIgnoreCase( angleUnitAbbreviatedString ) ) {
-            return DEGREES;
-        }
-
-        // NOTE: This abbreviated value accounts for the standard of leaving a
-        // space between the numeric value and its associated unit.
-        if ( " rad".equalsIgnoreCase( angleUnitAbbreviatedString ) ) {
-            return RADIANS;
-        }
-
-        return defaultValue();
-    }
-
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
-    }
-
-    public final String toPresentationString() {
-        return toAbbreviatedString();
-    }
-
-    public final String toAbbreviatedString() {
-        switch ( this ) {
-        case DEGREES:
-            return StringConstants.DEGREES_SYMBOL;
-        case RADIANS:
-            return " rad"; //$NON-NLS-1$
-        default:
-            final String errMessage = "Unexpected AngleUnit " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-    }
-
 }

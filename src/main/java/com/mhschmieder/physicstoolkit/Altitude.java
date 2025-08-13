@@ -52,7 +52,7 @@ public enum Altitude {
     }
 
     public final String toPresentationString( final DistanceUnit distanceUnit ) {
-        final String distanceUnitString = distanceUnit.toCanonicalString();
+        final String distanceUnitString = distanceUnit.label();
 
         final int lowAltitude = ( int ) FastMath
                 .round( UnitConversion.convertDistance( PhysicsConstants.ALTITUDE_LOW_METERS,
