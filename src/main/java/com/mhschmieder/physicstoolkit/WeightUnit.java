@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,83 +30,57 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.util.Locale;
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+import com.mhschmieder.commonstoolkit.lang.Labeled;
 
-public enum WeightUnit {
-    METRIC_TONS, KILOGRAMS, GRAMS, POUNDS, OUNCES;
+public enum WeightUnit implements Labeled< WeightUnit >, 
+        Abbreviated< WeightUnit > {
+    METRIC_TONS( "metric tons", " mt" ), 
+    KILOGRAMS( "kilograms", " kg" ), 
+    GRAMS( "grams", " g" ), 
+    POUNDS( "pounds", " lbs" ), 
+    OUNCES( "ounces", " oz" );
+    
+    private String label;
+    private String abbreviation;
+    
+    WeightUnit( final String pLabel,
+                final String pAbbreviation ) {
+        label = pLabel;
+        abbreviation = pAbbreviation;
+    }
+
+    @Override
+    public final String label() {
+        return label;
+    }
+
+    @Override
+    public WeightUnit valueOfLabel( final String text ) {
+        return ( WeightUnit ) EnumUtilities.getLabeledEnumFromLabel( 
+                text, values() );
+    }
+
+    @Override
+    public final String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public WeightUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( WeightUnit ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    }
 
     public static WeightUnit defaultValue() {
         return KILOGRAMS;
     }
 
-    public static WeightUnit fromCanonicalString( final String weightUnitCanonicalString ) {
-        return ( weightUnitCanonicalString != null )
-            ? valueOf( weightUnitCanonicalString.toUpperCase( Locale.ENGLISH ).replaceAll( " ", //$NON-NLS-1$
-                                                                                           "_" ) ) //$NON-NLS-1$
-            : defaultValue();
-    }
-
-    @SuppressWarnings("nls")
-    public static WeightUnit fromAbbreviatedString( final String weightUnitAbbreviatedString ) {
-        // NOTE: These abbreviated values account for the standard of leaving a
-        // space between the numeric value and its associated unit.
-        if ( " mt".equalsIgnoreCase( weightUnitAbbreviatedString ) ) {
-            return METRIC_TONS;
-        }
-
-        if ( " kg".equalsIgnoreCase( weightUnitAbbreviatedString ) ) {
-            return KILOGRAMS;
-        }
-
-        if ( " g".equalsIgnoreCase( weightUnitAbbreviatedString ) ) {
-            return GRAMS;
-        }
-
-        if ( " lbs".equalsIgnoreCase( weightUnitAbbreviatedString ) ) {
-            return POUNDS;
-        }
-
-        if ( " oz".equalsIgnoreCase( weightUnitAbbreviatedString ) ) {
-            return OUNCES;
-        }
-
-        return defaultValue();
-    }
-
     @Override
-    public final String toString() {
-        // NOTE: As of Java 6, enums include the underscore in their string
-        // representation, which is a problem for backward-compatibility with
-        // XML parsers. Thus, we need to strip the underscores and replace them
-        // with spaces, to behave like Java 5.
-        final String value = super.toString();
-        return value.replaceAll( "_", " " ); //$NON-NLS-1$ //$NON-NLS-2$
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        return label();
     }
-
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
-    }
-
-    public final String toPresentationString() {
-        return toAbbreviatedString();
-    }
-
-    public final String toAbbreviatedString() {
-        switch ( this ) {
-        case METRIC_TONS:
-            return " mt"; //$NON-NLS-1$
-        case KILOGRAMS:
-            return " kg"; //$NON-NLS-1$
-        case GRAMS:
-            return " g"; //$NON-NLS-1$
-        case POUNDS:
-            return " lbs"; //$NON-NLS-1$
-        case OUNCES:
-            return " oz"; //$NON-NLS-1$
-        default:
-            final String errMessage = "Unexpected WeightUnit " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-    }
-
 }

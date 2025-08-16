@@ -84,4 +84,11 @@ public enum DistanceUnit implements Labeled< DistanceUnit >,
     public static DistanceUnit defaultValue() {
         return METERS;
     }
+
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        return label();
+    }
 }

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,10 +32,57 @@ package com.mhschmieder.physicstoolkit;
 
 import java.util.Locale;
 
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+import com.mhschmieder.commonstoolkit.lang.Labeled;
 import com.mhschmieder.commonstoolkit.lang.StringConstants;
 
-public enum TemperatureUnit {
-    KELVIN, CELSIUS, FAHRENHEIT;
+/**
+ * An enumeration of the most relevant temperature units for most contexts.
+ * <p>
+ * NOTE: Temperature Units are all capitalized, unlike most other units, as
+ *  they are named after people.
+ * <p>
+ * NOTE: The labels in this context are ready for use in a Combo Box; whereas
+ *  the abbreviations are more for tagging units to displayed or editable 
+ *  values, and follow international conventions unique to each choice.
+ */
+public enum TemperatureUnit implements Labeled< TemperatureUnit >, 
+        Abbreviated< TemperatureUnit > {
+    KELVIN( "Kelvin", StringConstants.DEGREES_KELVIN ), 
+    CELSIUS( "Celsius", StringConstants.DEGREES_CELSIUS ), 
+    FAHRENHEIT( "Fahrenheit",StringConstants.DEGREES_FAHRENHEIT );
+    
+    private String label;
+    private String abbreviation;
+    
+    TemperatureUnit( final String pLabel,
+                     final String pAbbreviation ) {
+        label = pLabel;
+        abbreviation = pAbbreviation;
+    }
+
+    @Override
+    public final String label() {
+        return label;
+    }
+
+    @Override
+    public TemperatureUnit valueOfLabel( final String text ) {
+        return ( TemperatureUnit ) EnumUtilities.getLabeledEnumFromLabel(
+                text, values() );
+    }
+
+    @Override
+    public final String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public TemperatureUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( TemperatureUnit ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    }
 
     public static TemperatureUnit defaultValue() {
         return KELVIN;
@@ -45,57 +92,21 @@ public enum TemperatureUnit {
         return CELSIUS;
     }
 
-    public static TemperatureUnit fromCanonicalString( final String temperatureUnitCanonicalString ) {
-        return ( temperatureUnitCanonicalString != null )
-            ? valueOf( temperatureUnitCanonicalString.toUpperCase( Locale.ENGLISH ) )
-            : null;
-    }
-
-    public static TemperatureUnit fromAbbreviatedString( final String temperatureUnitAbbreviatedString ) {
-        if ( StringConstants.DEGREES_KELVIN.equalsIgnoreCase( temperatureUnitAbbreviatedString ) ) {
-            return KELVIN;
-        }
-
-        if ( StringConstants.DEGREES_CELSIUS
-                .equalsIgnoreCase( temperatureUnitAbbreviatedString ) ) {
-            return CELSIUS;
-        }
-
-        if ( StringConstants.DEGREES_FAHRENHEIT
-                .equalsIgnoreCase( temperatureUnitAbbreviatedString ) ) {
-            return FAHRENHEIT;
-        }
-
-        return defaultValue();
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        return label();
     }
 
     public final String toCanonicalString() {
         String canonicalString = toString();
 
         // NOTE: Temperature Units are all capitalized, unlike most other
-        // units, as they are named after people.
+        //  units, as they are named after people.
         canonicalString = canonicalString.substring( 0, 1 )
                 .concat( canonicalString.substring( 1 ).toLowerCase( Locale.ENGLISH ) );
 
         return canonicalString;
     }
-
-    public final String toPresentationString() {
-        return toAbbreviatedString();
-    }
-
-    public final String toAbbreviatedString() {
-        switch ( this ) {
-        case KELVIN:
-            return StringConstants.DEGREES_KELVIN;
-        case CELSIUS:
-            return StringConstants.DEGREES_CELSIUS;
-        case FAHRENHEIT:
-            return StringConstants.DEGREES_FAHRENHEIT;
-        default:
-            final String errMessage = "Unexpected TemperatureUnit " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-    }
-
 }

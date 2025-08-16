@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,55 @@ package com.mhschmieder.physicstoolkit;
 
 import java.util.Locale;
 
-public enum PressureUnit {
-    KILOPASCALS, PASCALS, MILLIBARS, ATMOSPHERES;
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+import com.mhschmieder.commonstoolkit.lang.Labeled;
+
+/**
+ * An enumeration of the most relevant pressure units for air attenuation.
+ * <p>
+ * NOTE: The labels account for the standard of leaving a space between the
+ *  numeric value and its associated unit. The utility for making a Combo Box
+ *  from an enum trims the space; other contexts need the space for separation.
+ */
+public enum PressureUnit implements Labeled< PressureUnit >, 
+        Abbreviated< PressureUnit > {
+    KILOPASCALS( "kilopascals", " kPa" ), 
+    PASCALS( "pascals", " Pa" ), 
+    MILLIBARS( "millibars", " mb" ), 
+    ATMOSPHERES( "atmospheres", " atm" );
+    
+    private String label;
+    private String abbreviation;
+    
+    PressureUnit( final String pLabel,
+                  final String pAbbreviation ) {
+        label = pLabel;
+        abbreviation = pAbbreviation;
+    }
+
+    @Override
+    public final String label() {
+        return label;
+    }
+
+    @Override
+    public PressureUnit valueOfLabel( final String text ) {
+        return ( PressureUnit ) EnumUtilities.getLabeledEnumFromLabel(
+                text, values() );
+    }
+
+    @Override
+    public final String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public PressureUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( PressureUnit ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    }
+
 
     public static PressureUnit defaultValue() {
         return PASCALS;
@@ -43,57 +90,10 @@ public enum PressureUnit {
         return KILOPASCALS;
     }
 
-    public static PressureUnit fromCanonicalString( final String pressureUnitCanonicalString ) {
-        return ( pressureUnitCanonicalString != null )
-            ? valueOf( pressureUnitCanonicalString.toUpperCase( Locale.ENGLISH ) )
-            : defaultValue();
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        return label();
     }
-
-    @SuppressWarnings("nls")
-    public static PressureUnit fromAbbreviatedString( final String pressureUnitAbbreviatedString ) {
-        // NOTE: These abbreviated values account for the standard of leaving a
-        // space between the numeric value and its associated unit.
-        if ( " kPa".equalsIgnoreCase( pressureUnitAbbreviatedString ) ) {
-            return KILOPASCALS;
-        }
-
-        if ( " Pa".equalsIgnoreCase( pressureUnitAbbreviatedString ) ) {
-            return PASCALS;
-        }
-
-        if ( " mb".equalsIgnoreCase( pressureUnitAbbreviatedString ) ) {
-            return MILLIBARS;
-        }
-
-        if ( " atm".equalsIgnoreCase( pressureUnitAbbreviatedString ) ) {
-            return ATMOSPHERES;
-        }
-
-        return defaultValue();
-    }
-
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
-    }
-
-    public final String toPresentationString() {
-        return toAbbreviatedString();
-    }
-
-    public final String toAbbreviatedString() {
-        switch ( this ) {
-        case KILOPASCALS:
-            return " kPa"; //$NON-NLS-1$
-        case PASCALS:
-            return " Pa"; //$NON-NLS-1$
-        case MILLIBARS:
-            return " mb"; //$NON-NLS-1$
-        case ATMOSPHERES:
-            return " atm"; //$NON-NLS-1$
-        default:
-            final String errMessage = "Unexpected PressureUnit " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-    }
-
 }

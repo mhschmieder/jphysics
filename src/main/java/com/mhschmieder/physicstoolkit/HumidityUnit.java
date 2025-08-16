@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,54 +30,61 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.util.Locale;
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+import com.mhschmieder.commonstoolkit.lang.Labeled;
 
-public enum HumidityUnit {
-    RELATIVE, MOLAR;
+/**
+ * An enumeration of the most relevant humidity units for air attenuation.
+ * <p>
+ * NOTE: The labels account for the standard of leaving a space between the
+ *  numeric value and its associated unit. The utility for making a Combo Box
+ *  from an enum trims the space; other contexts need the space for separation.
+ */
+public enum HumidityUnit implements Labeled< HumidityUnit >, 
+        Abbreviated< HumidityUnit > {
+    RELATIVE( "relative", "%" ), 
+    MOLAR( "molar", " moles" );
+    
+    private String label;
+    private String abbreviation;
+    
+    HumidityUnit( final String pLabel,
+                  final String pAbbreviation ) {
+        label = pLabel;
+        abbreviation = pAbbreviation;
+    }
+
+    @Override
+    public final String label() {
+        return label;
+    }
+
+    @Override
+    public HumidityUnit valueOfLabel( final String text ) {
+        return ( HumidityUnit ) EnumUtilities.getLabeledEnumFromLabel(
+                text, values() );
+    }
+
+    @Override
+    public final String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public HumidityUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( HumidityUnit ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    }
 
     public static HumidityUnit defaultValue() {
         return RELATIVE;
     }
 
-    public static HumidityUnit fromCanonicalString( final String humidityUnitCanonicalString ) {
-        return ( humidityUnitCanonicalString != null )
-            ? valueOf( humidityUnitCanonicalString.toUpperCase( Locale.ENGLISH ) )
-            : defaultValue();
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        return label();
     }
-
-    @SuppressWarnings("nls")
-    public static HumidityUnit fromAbbreviatedString( final String humidityUnitAbbreviatedString ) {
-        if ( "%".equalsIgnoreCase( humidityUnitAbbreviatedString ) ) {
-            return RELATIVE;
-        }
-
-        // NOTE: This abbreviated value accounts for the standard of leaving a
-        // space between the numeric value and its associated unit.
-        if ( " moles".equalsIgnoreCase( humidityUnitAbbreviatedString ) ) {
-            return MOLAR;
-        }
-
-        return defaultValue();
-    }
-
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
-    }
-
-    public final String toPresentationString() {
-        return toAbbreviatedString();
-    }
-
-    public final String toAbbreviatedString() {
-        switch ( this ) {
-        case RELATIVE:
-            return "%"; //$NON-NLS-1$
-        case MOLAR:
-            return " moles"; //$NON-NLS-1$
-        default:
-            final String errMessage = "Unexpected HumidityUnit " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-    }
-
 }

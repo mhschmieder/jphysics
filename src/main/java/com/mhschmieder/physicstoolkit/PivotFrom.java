@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,20 +32,64 @@ package com.mhschmieder.physicstoolkit;
 
 import java.util.Locale;
 
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+import com.mhschmieder.commonstoolkit.lang.Labeled;
+
 /**
  * The <code>PivotFrom</code> enum is an enumeration for "pivot from" values for
  * rigging or other contexts.
  *
- * NOTE: Other than for Presentation String, this is now redundant with JavaFX.
+ * NOTE: Other than for string-based values, this is now redundant with JavaFX.
  */
-public enum PivotFrom {
-    REAR, FRONT;
+public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > {
+    REAR( "Rear", "r" ), 
+    FRONT( "Front", "f" );
+    
+    private String label;
+    private String abbreviation;
+    
+    PivotFrom( final String pLabel,
+               final String pAbbreviation ) {
+        label = pLabel;
+        abbreviation = pAbbreviation;
+    }
 
-    @SuppressWarnings("nls")
-    public static PivotFrom abbreviatedValueOf( final String abbreviatedPivotFrom ) {
-        return ( "r".equalsIgnoreCase( abbreviatedPivotFrom ) )
-            ? REAR
-            : ( "f".equalsIgnoreCase( abbreviatedPivotFrom ) ) ? FRONT : defaultValue();
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public PivotFrom valueOfLabel( final String text ) {
+        return ( PivotFrom ) EnumUtilities.getLabeledEnumFromLabel(
+                text, values() );
+    }
+
+    @Override
+    public String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public PivotFrom valueOfAbbreviation( final String abbreviatedText ) {
+        return ( PivotFrom ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText, values() );
+    }
+
+    public static PivotFrom defaultValue() {
+        return FRONT;
+    }
+
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        return label();
+    }
+
+    public final String toCanonicalString() {
+        return toString().toLowerCase( Locale.ENGLISH );
     }
 
     @SuppressWarnings("nls")
@@ -59,51 +103,4 @@ public enum PivotFrom {
                     ? FRONT
                     : valueOf( canonicalPivotFrom.toUpperCase( Locale.ENGLISH ) );
     }
-
-    public static PivotFrom defaultValue() {
-        return FRONT;
-    }
-
-    public final String toAbbreviatedString() {
-        String abbreviatedString = null;
-        
-        switch ( this ) {
-        case REAR:
-            abbreviatedString = "r"; //$NON-NLS-1$
-            break;
-        case FRONT:
-            abbreviatedString = "f"; //$NON-NLS-1$
-            break;
-        default:
-            final String errMessage = "Unexpected " //$NON-NLS-1$
-                    + this.getClass().getSimpleName() + " " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-        
-        return abbreviatedString;
-    }
-
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
-    }
-
-    public final String toPresentationString() {
-        String presentationString = null;
-        
-        switch ( this ) {
-        case REAR:
-            presentationString = "Rear"; //$NON-NLS-1$
-            break;
-        case FRONT:
-            presentationString = "Front"; //$NON-NLS-1$
-            break;
-        default:
-            final String errMessage = "Unexpected " //$NON-NLS-1$
-                    + this.getClass().getSimpleName() + " " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
-        }
-        
-        return presentationString;
-    }
-
-}// enum PivotFrom
+}
