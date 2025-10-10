@@ -30,9 +30,8 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-
 import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
  * The coordinate/axis convention is the same as elsewhere in rigging:

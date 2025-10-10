@@ -30,11 +30,11 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.util.Locale;
-
 import com.mhschmieder.commonstoolkit.lang.Abbreviated;
 import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
 import com.mhschmieder.commonstoolkit.lang.Labeled;
+
+import java.util.Locale;
 
 /**
  * The <code>PivotFrom</code> enum is an enumeration for "pivot from" values for

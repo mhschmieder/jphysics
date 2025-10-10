@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.text.NumberFormat;
-
 import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
+
+import java.text.NumberFormat;
 
 /**
  * Utility methods for physics; primarily consisting of angle methodologies.

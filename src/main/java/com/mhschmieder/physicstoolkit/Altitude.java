@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.util.Locale;
-
 import org.apache.commons.math3.util.FastMath;
+
+import java.util.Locale;
 
 public enum Altitude {
     LOW, MEDIUM, HIGH;

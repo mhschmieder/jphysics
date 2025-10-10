@@ -30,12 +30,12 @@
  */
 package com.mhschmieder.physicstoolkit;
 
-import java.util.Locale;
-
 import com.mhschmieder.commonstoolkit.lang.Abbreviated;
 import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
 import com.mhschmieder.commonstoolkit.lang.Labeled;
 import com.mhschmieder.commonstoolkit.lang.StringConstants;
+
+import java.util.Locale;
 
 /**
  * An enumeration of the most relevant temperature units for most contexts.
