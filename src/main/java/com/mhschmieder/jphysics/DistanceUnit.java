@@ -21,71 +21,68 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the PhysicsToolkit Library
+ * This file is part of the JPhysics Library
  *
  * You should have received a copy of the MIT License along with the
- * PhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * JPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/physicstoolkit
+ * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.physicstoolkit;
+package com.mhschmieder.jphysics;
 
-import com.mhschmieder.commonstoolkit.lang.Abbreviated;
-import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
-import com.mhschmieder.commonstoolkit.lang.Labeled;
+import com.mhschmieder.jcommons.lang.Abbreviated;
+import com.mhschmieder.jcommons.lang.EnumUtilities;
+import com.mhschmieder.jcommons.lang.Labeled;
 
 /**
- * An enumeration of the most relevant pressure units for air attenuation.
+ * An enumeration of the most relevant length units for linear distance.
  * <p>
  * NOTE: The labels account for the standard of leaving a space between the
  *  numeric value and its associated unit. The utility for making a Combo Box
  *  from an enum trims the space; other contexts need the space for separation.
+ * NOTE: The "Unitless" field is included because sometimes this is an interim
+ *  value until units are known, or units weren't specified but we need to 
+ *  track that as distinct from units not initialized within the client code.
  */
-public enum PressureUnit implements Labeled< PressureUnit >, 
-        Abbreviated< PressureUnit > {
-    KILOPASCALS( "kilopascals", " kPa" ), 
-    PASCALS( "pascals", " Pa" ), 
-    MILLIBARS( "millibars", " mb" ), 
-    ATMOSPHERES( "atmospheres", " atm" );
+public enum DistanceUnit implements Labeled< DistanceUnit >, 
+        Abbreviated< DistanceUnit > {
+    UNITLESS( "unitless", "" ), 
+    MILLIMETERS( "millimeters", " mm" ), 
+    CENTIMETERS( "centimeters", " cm" ), 
+    METERS( "meters", " m" ), 
+    INCHES( "inches", " in" ),
+    FEET( "feet", " ft" ), 
+    YARDS( "yards", " yd" );
     
     private String label;
     private String abbreviation;
     
-    PressureUnit( final String pLabel,
+    DistanceUnit( final String pLabel,
                   final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    @Override
     public final String label() {
         return label;
     }
 
-    @Override
-    public PressureUnit valueOfLabel( final String text ) {
-        return ( PressureUnit ) EnumUtilities.getLabeledEnumFromLabel(
+    public DistanceUnit valueOfLabel( final String text ) {
+        return ( DistanceUnit ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
     }
 
-    @Override
     public final String abbreviation() {
         return abbreviation;
     }
 
-    @Override
-    public PressureUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( PressureUnit ) EnumUtilities
+    public DistanceUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( DistanceUnit ) EnumUtilities
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
-
-    public static PressureUnit defaultValue() {
-        return PASCALS;
-    }
-
-    public static PressureUnit defaultValueForAir() {
-        return KILOPASCALS;
+    public static DistanceUnit defaultValue() {
+        return METERS;
     }
 
     @Override

@@ -21,16 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the PhysicsToolkit Library
+ * This file is part of the JPhysics Library
  *
  * You should have received a copy of the MIT License along with the
- * PhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * JPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/physicstoolkit
+ * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.physicstoolkit;
+package com.mhschmieder.jphysics;
 
-import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
+import com.mhschmieder.jcommons.text.NumberFormatUtilities;
 
 import java.text.NumberFormat;
 

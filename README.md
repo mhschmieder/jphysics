@@ -2,7 +2,7 @@
 
 The jphysics library is a Toolkit for concepts usually assigned to physics even when fairly commonly used (such as physical units).
 
-This is split off from my commonstoolkit as the number of files in the physics subpackage was getting quite large once I added the acoustics library to the mix.
+This is split off from my jcommons as the number of files in the physics subpackage was getting quite large once I added the acoustics library to the mix.
 
 Contrarily, this library may shrink a bit once the Units of Measurement JSR finally reaches maturity stage.
 

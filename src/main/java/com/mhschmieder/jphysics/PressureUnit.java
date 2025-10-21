@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  *
  * Copyright (c) 2020, 2025 Mark Schmieder
@@ -21,42 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the PhysicsToolkit Library
+ * This file is part of the JPhysics Library
  *
- * You should have received a copy of the MIT License along with the
- * PhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the JPhysics 
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/physicstoolkit
+ * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.physicstoolkit;
+package com.mhschmieder.jphysics;
 
-import com.mhschmieder.commonstoolkit.lang.Abbreviated;
-import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
-import com.mhschmieder.commonstoolkit.lang.Labeled;
-import com.mhschmieder.commonstoolkit.lang.StringConstants;
+import com.mhschmieder.jcommons.lang.Abbreviated;
+import com.mhschmieder.jcommons.lang.EnumUtilities;
+import com.mhschmieder.jcommons.lang.Labeled;
 
 /**
- * An enumeration of the most relevant angle units for angular distance.
+ * An enumeration of the most relevant pressure units for air attenuation.
  * <p>
  * NOTE: The labels account for the standard of leaving a space between the
  *  numeric value and its associated unit. The utility for making a Combo Box
  *  from an enum trims the space; other contexts need the space for separation.
- * NOTE: The radians field is included because sometimes it is helpful to use
- *  switch statements for degrees vs. radians in computational code bases,
- *  especially when translated from other languages.
- * NOTE: Degrees as minutes, seconds, etc., are not included here, as the main
- *  application for such formats is in the geo space, which is in another API.
  */
-public enum AngleUnit implements Labeled< AngleUnit >,
-        Abbreviated< AngleUnit > {
-    DEGREES( "degrees", StringConstants.DEGREES_SYMBOL ), 
-    RADIANS( "radians", " rad" );
+public enum PressureUnit implements Labeled< PressureUnit >, 
+        Abbreviated< PressureUnit > {
+    KILOPASCALS( "kilopascals", " kPa" ), 
+    PASCALS( "pascals", " Pa" ), 
+    MILLIBARS( "millibars", " mb" ), 
+    ATMOSPHERES( "atmospheres", " atm" );
     
     private String label;
     private String abbreviation;
     
-    AngleUnit( final String pLabel,
-               final String pAbbreviation ) {
+    PressureUnit( final String pLabel,
+                  final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
@@ -67,8 +63,8 @@ public enum AngleUnit implements Labeled< AngleUnit >,
     }
 
     @Override
-    public AngleUnit valueOfLabel( final String text ) {
-        return ( AngleUnit ) EnumUtilities.getLabeledEnumFromLabel(
+    public PressureUnit valueOfLabel( final String text ) {
+        return ( PressureUnit ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
     }
 
@@ -78,13 +74,18 @@ public enum AngleUnit implements Labeled< AngleUnit >,
     }
 
     @Override
-    public AngleUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( AngleUnit ) EnumUtilities
+    public PressureUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( PressureUnit ) EnumUtilities
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
-    public static AngleUnit defaultValue() {
-        return DEGREES;
+
+    public static PressureUnit defaultValue() {
+        return PASCALS;
+    }
+
+    public static PressureUnit defaultValueForAir() {
+        return KILOPASCALS;
     }
 
     @Override

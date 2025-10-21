@@ -21,36 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the PhysicsToolkit Library
+ * This file is part of the JPhysics Library
  *
  * You should have received a copy of the MIT License along with the
- * PhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * JPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/physicstoolkit
+ * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.physicstoolkit;
+package com.mhschmieder.jphysics;
 
-import com.mhschmieder.commonstoolkit.lang.Abbreviated;
-import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
-import com.mhschmieder.commonstoolkit.lang.Labeled;
+import com.mhschmieder.jcommons.lang.Abbreviated;
+import com.mhschmieder.jcommons.lang.EnumUtilities;
+import com.mhschmieder.jcommons.lang.Labeled;
 
-/**
- * An enumeration of the most relevant humidity units for air attenuation.
- * <p>
- * NOTE: The labels account for the standard of leaving a space between the
- *  numeric value and its associated unit. The utility for making a Combo Box
- *  from an enum trims the space; other contexts need the space for separation.
- */
-public enum HumidityUnit implements Labeled< HumidityUnit >, 
-        Abbreviated< HumidityUnit > {
-    RELATIVE( "relative", "%" ), 
-    MOLAR( "molar", " moles" );
+public enum WeightUnit implements Labeled< WeightUnit >, 
+        Abbreviated< WeightUnit > {
+    METRIC_TONS( "metric tons", " mt" ), 
+    KILOGRAMS( "kilograms", " kg" ), 
+    GRAMS( "grams", " g" ), 
+    POUNDS( "pounds", " lbs" ), 
+    OUNCES( "ounces", " oz" );
     
     private String label;
     private String abbreviation;
     
-    HumidityUnit( final String pLabel,
-                  final String pAbbreviation ) {
+    WeightUnit( final String pLabel,
+                final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
@@ -61,8 +57,8 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
     }
 
     @Override
-    public HumidityUnit valueOfLabel( final String text ) {
-        return ( HumidityUnit ) EnumUtilities.getLabeledEnumFromLabel(
+    public WeightUnit valueOfLabel( final String text ) {
+        return ( WeightUnit ) EnumUtilities.getLabeledEnumFromLabel( 
                 text, values() );
     }
 
@@ -72,13 +68,13 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
     }
 
     @Override
-    public HumidityUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( HumidityUnit ) EnumUtilities
+    public WeightUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( WeightUnit ) EnumUtilities
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
-    public static HumidityUnit defaultValue() {
-        return RELATIVE;
+    public static WeightUnit defaultValue() {
+        return KILOGRAMS;
     }
 
     @Override

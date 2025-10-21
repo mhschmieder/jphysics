@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2023, 2025, Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,26 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the PhysicsToolkit Library
+ * This file is part of the JPhysics Library
  *
  * You should have received a copy of the MIT License along with the
- * PhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/physicstoolkit
+ * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.physicstoolkit;
+package com.mhschmieder.jphysics;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-
-// NOTE: Mass Properties are measured, and thus are read-only.
-public interface MassComputable {
-
-    // NOTE: This is essentially a lookup method of COG's calculated off-line
-    // in SolidWorks, so it is thought of as a getter method vs. a calculator.
-    Vector3D getCogInObjectCoordinates();
-
-    double getWeightKg();
-
-    boolean isCogValid();
-
+/**
+ * An enumeration of supported Color Palettes, for future enhancements and to
+ * keep the specification of a Custom Palette bundled with supplied palettes.
+ * Currently, only the common Jet Palette is specified with this toolkit, but
+ * implementing this enumeration allows for API design that makes it easy for
+ * derived classes to provide their own custom palettes via method override.
+ */
+public enum ColorPalette {
+    JET, CUSTOM;
 }

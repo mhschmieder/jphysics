@@ -21,68 +21,70 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the PhysicsToolkit Library
+ * This file is part of the JPhysics Library
  *
  * You should have received a copy of the MIT License along with the
- * PhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * JPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/physicstoolkit
+ * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.physicstoolkit;
+package com.mhschmieder.jphysics;
 
-import com.mhschmieder.commonstoolkit.lang.Abbreviated;
-import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
-import com.mhschmieder.commonstoolkit.lang.Labeled;
+import com.mhschmieder.jcommons.lang.Abbreviated;
+import com.mhschmieder.jcommons.lang.EnumUtilities;
+import com.mhschmieder.jcommons.lang.Labeled;
+import com.mhschmieder.jcommons.lang.StringConstants;
 
 /**
- * An enumeration of the most relevant length units for linear distance.
+ * An enumeration of the most relevant angle units for angular distance.
  * <p>
  * NOTE: The labels account for the standard of leaving a space between the
  *  numeric value and its associated unit. The utility for making a Combo Box
  *  from an enum trims the space; other contexts need the space for separation.
- * NOTE: The "Unitless" field is included because sometimes this is an interim
- *  value until units are known, or units weren't specified but we need to 
- *  track that as distinct from units not initialized within the client code.
+ * NOTE: The radians field is included because sometimes it is helpful to use
+ *  switch statements for degrees vs. radians in computational code bases,
+ *  especially when translated from other languages.
+ * NOTE: Degrees as minutes, seconds, etc., are not included here, as the main
+ *  application for such formats is in the geo space, which is in another API.
  */
-public enum DistanceUnit implements Labeled< DistanceUnit >, 
-        Abbreviated< DistanceUnit > {
-    UNITLESS( "unitless", "" ), 
-    MILLIMETERS( "millimeters", " mm" ), 
-    CENTIMETERS( "centimeters", " cm" ), 
-    METERS( "meters", " m" ), 
-    INCHES( "inches", " in" ),
-    FEET( "feet", " ft" ), 
-    YARDS( "yards", " yd" );
+public enum AngleUnit implements Labeled< AngleUnit >,
+        Abbreviated< AngleUnit > {
+    DEGREES( "degrees", StringConstants.DEGREES_SYMBOL ), 
+    RADIANS( "radians", " rad" );
     
     private String label;
     private String abbreviation;
     
-    DistanceUnit( final String pLabel,
-                  final String pAbbreviation ) {
+    AngleUnit( final String pLabel,
+               final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
+    @Override
     public final String label() {
         return label;
     }
 
-    public DistanceUnit valueOfLabel( final String text ) {
-        return ( DistanceUnit ) EnumUtilities.getLabeledEnumFromLabel(
+    @Override
+    public AngleUnit valueOfLabel( final String text ) {
+        return ( AngleUnit ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
     }
 
+    @Override
     public final String abbreviation() {
         return abbreviation;
     }
 
-    public DistanceUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( DistanceUnit ) EnumUtilities
+    @Override
+    public AngleUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( AngleUnit ) EnumUtilities
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
-    public static DistanceUnit defaultValue() {
-        return METERS;
+    public static AngleUnit defaultValue() {
+        return DEGREES;
     }
 
     @Override

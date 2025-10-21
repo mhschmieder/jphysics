@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mhschmieder</groupId>
-    <artifactId>physicstoolkit</artifactId>
+    <artifactId>jphysics</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>PhysicsToolkit</name>
-    <url>https://github.com/mhschmieder/physicstoolkit </url>
+    <name>jphysics</name>
+    <url>https://github.com/mhschmieder/jphysics</url>
     <description>Physics and acoustics classes for Java.</description>
 
     <licenses>
@@ -21,9 +21,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/mhschmieder/physicstoolkit </url>
-        <connection>scm:git:git://github.com/mhschmieder/physicstoolkit.git</connection>
-        <developerConnection>scm:git:git@github.com:mhschmieder/physicstoolkit.git</developerConnection>
+        <url>https://github.com/mhschmieder/jphysics</url>
+        <connection>scm:git:git://github.com/mhschmieder/jphysics.git</connection>
+        <developerConnection>scm:git:git@github.com:mhschmieder/jphysics.git</developerConnection>
     </scm>
 
     <developers>
@@ -49,11 +49,10 @@
             <groupId>com.mhschmieder</groupId>
             <artifactId>mathtoolkit</artifactId>
             <version>0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+         </dependency>
         <dependency>
             <groupId>com.mhschmieder</groupId>
-            <artifactId>commonstoolkit</artifactId>
+            <artifactId>jcommons</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
