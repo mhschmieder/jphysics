@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.jphysics;
 
-import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
+import com.mhschmieder.jmath.geometry.euclidian.VectorUtilities;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
