@@ -53,8 +53,8 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
     CELSIUS( "Celsius", StringConstants.DEGREES_CELSIUS ), 
     FAHRENHEIT( "Fahrenheit",StringConstants.DEGREES_FAHRENHEIT );
     
-    private String label;
-    private String abbreviation;
+    private final String label;
+    private final String abbreviation;
     
     TemperatureUnit( final String pLabel,
                      final String pAbbreviation ) {
@@ -63,7 +63,7 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
     }
 
     @Override
-    public final String label() {
+    public String label() {
         return label;
     }
 
@@ -74,7 +74,7 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
     }
 
     @Override
-    public final String abbreviation() {
+    public String abbreviation() {
         return abbreviation;
     }
 
@@ -84,19 +84,20 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
+        return label();
+    }
+
     public static TemperatureUnit defaultValue() {
         return KELVIN;
     }
 
-    public static final TemperatureUnit defaultValueForAir() {
+    public static TemperatureUnit defaultValueForAir() {
         return CELSIUS;
-    }
-
-    @Override
-    public String toString() {
-        // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell.
-        return label();
     }
 
     public final String toCanonicalString() {

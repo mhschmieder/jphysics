@@ -48,8 +48,8 @@ public enum PressureUnit implements Labeled< PressureUnit >,
     MILLIBARS( "millibars", " mb" ), 
     ATMOSPHERES( "atmospheres", " atm" );
     
-    private String label;
-    private String abbreviation;
+    private final String label;
+    private final String abbreviation;
     
     PressureUnit( final String pLabel,
                   final String pAbbreviation ) {
@@ -58,7 +58,7 @@ public enum PressureUnit implements Labeled< PressureUnit >,
     }
 
     @Override
-    public final String label() {
+    public String label() {
         return label;
     }
 
@@ -69,7 +69,7 @@ public enum PressureUnit implements Labeled< PressureUnit >,
     }
 
     @Override
-    public final String abbreviation() {
+    public String abbreviation() {
         return abbreviation;
     }
 
@@ -79,6 +79,13 @@ public enum PressureUnit implements Labeled< PressureUnit >,
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
+        return label();
+    }
 
     public static PressureUnit defaultValue() {
         return PASCALS;
@@ -86,12 +93,5 @@ public enum PressureUnit implements Labeled< PressureUnit >,
 
     public static PressureUnit defaultValueForAir() {
         return KILOPASCALS;
-    }
-
-    @Override
-    public String toString() {
-        // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell.
-        return label();
     }
 }

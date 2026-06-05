@@ -46,8 +46,8 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
     RELATIVE( "relative", "%" ), 
     MOLAR( "molar", " moles" );
     
-    private String label;
-    private String abbreviation;
+    private final String label;
+    private final String abbreviation;
     
     HumidityUnit( final String pLabel,
                   final String pAbbreviation ) {
@@ -56,7 +56,7 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
     }
 
     @Override
-    public final String label() {
+    public String label() {
         return label;
     }
 
@@ -67,7 +67,7 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
     }
 
     @Override
-    public final String abbreviation() {
+    public String abbreviation() {
         return abbreviation;
     }
 
@@ -77,14 +77,15 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
-    public static HumidityUnit defaultValue() {
-        return RELATIVE;
-    }
-
     @Override
     public String toString() {
         // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
+    }
+
+    public static HumidityUnit defaultValue() {
+        return RELATIVE;
     }
 }

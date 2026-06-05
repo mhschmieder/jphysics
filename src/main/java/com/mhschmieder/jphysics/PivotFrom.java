@@ -46,8 +46,8 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
     REAR( "Rear", "r" ), 
     FRONT( "Front", "f" );
     
-    private String label;
-    private String abbreviation;
+    private final String label;
+    private final String abbreviation;
     
     PivotFrom( final String pLabel,
                final String pAbbreviation ) {
@@ -84,7 +84,8 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
     @Override
     public String toString() {
         // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
     }
 
@@ -92,7 +93,6 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
         return toString().toLowerCase( Locale.ENGLISH );
     }
 
-    @SuppressWarnings("nls")
     public static PivotFrom canonicalValueOf( final String canonicalPivotFrom ) {
         // Cover legacy cases, as we changed terminology at some point.
         return ( canonicalPivotFrom == null )

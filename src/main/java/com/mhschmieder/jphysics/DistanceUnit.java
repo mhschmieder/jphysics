@@ -54,8 +54,8 @@ public enum DistanceUnit implements Labeled< DistanceUnit >,
     FEET( "feet", " ft" ), 
     YARDS( "yards", " yd" );
     
-    private String label;
-    private String abbreviation;
+    private final String label;
+    private final String abbreviation;
     
     DistanceUnit( final String pLabel,
                   final String pAbbreviation ) {
@@ -63,7 +63,7 @@ public enum DistanceUnit implements Labeled< DistanceUnit >,
         abbreviation = pAbbreviation;
     }
 
-    public final String label() {
+    public String label() {
         return label;
     }
 
@@ -72,7 +72,7 @@ public enum DistanceUnit implements Labeled< DistanceUnit >,
                 text, values() );
     }
 
-    public final String abbreviation() {
+    public String abbreviation() {
         return abbreviation;
     }
 
@@ -88,7 +88,8 @@ public enum DistanceUnit implements Labeled< DistanceUnit >,
     @Override
     public String toString() {
         // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
     }
 }

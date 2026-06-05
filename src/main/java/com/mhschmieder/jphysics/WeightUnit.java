@@ -42,8 +42,8 @@ public enum WeightUnit implements Labeled< WeightUnit >,
     POUNDS( "pounds", " lbs" ), 
     OUNCES( "ounces", " oz" );
     
-    private String label;
-    private String abbreviation;
+    private final String label;
+    private final String abbreviation;
     
     WeightUnit( final String pLabel,
                 final String pAbbreviation ) {
@@ -52,7 +52,7 @@ public enum WeightUnit implements Labeled< WeightUnit >,
     }
 
     @Override
-    public final String label() {
+    public String label() {
         return label;
     }
 
@@ -63,7 +63,7 @@ public enum WeightUnit implements Labeled< WeightUnit >,
     }
 
     @Override
-    public final String abbreviation() {
+    public String abbreviation() {
         return abbreviation;
     }
 
@@ -73,14 +73,15 @@ public enum WeightUnit implements Labeled< WeightUnit >,
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
-    public static WeightUnit defaultValue() {
-        return KILOGRAMS;
-    }
-
     @Override
     public String toString() {
         // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
+    }
+
+    public static WeightUnit defaultValue() {
+        return KILOGRAMS;
     }
 }
