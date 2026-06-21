@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2026 Mark Schmieder. All rights reserved.
+ * Copyright (c) 2020, 2026 Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the jmath Library
+ * This file is part of the jphysics Library
  *
- * You should have received a copy of the MIT License along with the jmath
+ * You should have received a copy of the MIT License along with the jphysics
  * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/jmath
+ * Project: https://github.com/mhschmieder/jphysics
  */
-module jphysics {
-    exports com.mhschmieder.jphysics;
-    exports com.mhschmieder.jphysics.acoustics;
-    exports com.mhschmieder.jphysics.classical;
-    exports com.mhschmieder.jphysics.measure;
-    exports com.mhschmieder.jphysics.util;
-    requires commons.math3;
-    requires jcommons;
-    requires jmath;
-}
+/**
+ * A sub-package for general Acoustics and Acoustic Engineering functionality.
+ */
+package com.mhschmieder.jphysics.acoustics;
