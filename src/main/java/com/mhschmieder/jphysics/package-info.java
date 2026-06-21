@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JPhysics Library
+ * This file is part of the jphysics Library
  *
- * You should have received a copy of the MIT License along with the
- * JPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jphysics
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
 /**
- * The core package for generic Physics functions, meant to be globally
+ * The core package for generic Physics functionality, meant to be globally
  * applicable rather than specific to any particular product or application.
  */
 package com.mhschmieder.jphysics;
