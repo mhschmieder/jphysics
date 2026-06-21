@@ -28,8 +28,9 @@
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.measure;
 
+import com.mhschmieder.jphysics.PhysicsConstants;
 import org.apache.commons.math3.util.FastMath;
 
 import java.util.Locale;

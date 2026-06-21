@@ -28,49 +28,61 @@
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.measure;
 
 import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
-public enum WeightUnit implements Labeled< WeightUnit >, 
-        Abbreviated< WeightUnit > {
-    METRIC_TONS( "metric tons", " mt" ), 
-    KILOGRAMS( "kilograms", " kg" ), 
-    GRAMS( "grams", " g" ), 
-    POUNDS( "pounds", " lbs" ), 
-    OUNCES( "ounces", " oz" );
+/**
+ * An enumeration of the most relevant length units for linear distance.
+ * <p>
+ * NOTE: The labels account for the standard of leaving a space between the
+ *  numeric value and its associated unit. The utility for making a Combo Box
+ *  from an enum trims the space; other contexts need the space for separation.
+ * NOTE: The "Unitless" field is included because sometimes this is an interim
+ *  value until units are known, or units weren't specified but we need to 
+ *  track that as distinct from units not initialized within the client code.
+ */
+public enum DistanceUnit implements Labeled< DistanceUnit >, 
+        Abbreviated< DistanceUnit > {
+    UNITLESS( "unitless", "" ), 
+    MILLIMETERS( "millimeters", " mm" ), 
+    CENTIMETERS( "centimeters", " cm" ), 
+    METERS( "meters", " m" ), 
+    INCHES( "inches", " in" ),
+    FEET( "feet", " ft" ), 
+    YARDS( "yards", " yd" );
     
     private final String label;
     private final String abbreviation;
     
-    WeightUnit( final String pLabel,
-                final String pAbbreviation ) {
+    DistanceUnit( final String pLabel,
+                  final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    @Override
     public String label() {
         return label;
     }
 
-    @Override
-    public WeightUnit valueOfLabel( final String text ) {
-        return ( WeightUnit ) EnumUtilities.getLabeledEnumFromLabel( 
+    public DistanceUnit valueOfLabel( final String text ) {
+        return ( DistanceUnit ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
     }
 
-    @Override
     public String abbreviation() {
         return abbreviation;
     }
 
-    @Override
-    public WeightUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( WeightUnit ) EnumUtilities
+    public DistanceUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( DistanceUnit ) EnumUtilities
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    }
+
+    public static DistanceUnit defaultValue() {
+        return METERS;
     }
 
     @Override
@@ -79,9 +91,5 @@ public enum WeightUnit implements Labeled< WeightUnit >,
         //  its custom label form when a Combo Box is hosted by a Table Cell. It
         //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
-    }
-
-    public static WeightUnit defaultValue() {
-        return KILOGRAMS;
     }
 }

@@ -28,34 +28,28 @@
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.classical;
 
 import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
-import com.mhschmieder.jcommons.lang.StringConstants;
+
+import java.util.Locale;
 
 /**
- * An enumeration of the most relevant angle units for angular distance.
- * <p>
- * NOTE: The labels account for the standard of leaving a space between the
- *  numeric value and its associated unit. The utility for making a Combo Box
- *  from an enum trims the space; other contexts need the space for separation.
- * NOTE: The radians field is included because sometimes it is helpful to use
- *  switch statements for degrees vs. radians in computational code bases,
- *  especially when translated from other languages.
- * NOTE: Degrees as minutes, seconds, etc., are not included here, as the main
- *  application for such formats is in the geo space, which is in another API.
+ * The <code>PivotFrom</code> enum is an enumeration for "pivot from" values for
+ * rigging or other contexts.
+ *
+ * NOTE: Other than for string-based values, this is now redundant with JavaFX.
  */
-public enum AngleUnit implements Labeled< AngleUnit >,
-        Abbreviated< AngleUnit > {
-    DEGREES( "degrees", StringConstants.DEGREES_SYMBOL ), 
-    RADIANS( "radians", " rad" );
+public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > {
+    REAR( "Rear", "r" ), 
+    FRONT( "Front", "f" );
     
     private final String label;
     private final String abbreviation;
     
-    AngleUnit( final String pLabel,
+    PivotFrom( final String pLabel,
                final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
@@ -67,8 +61,8 @@ public enum AngleUnit implements Labeled< AngleUnit >,
     }
 
     @Override
-    public AngleUnit valueOfLabel( final String text ) {
-        return ( AngleUnit ) EnumUtilities.getLabeledEnumFromLabel(
+    public PivotFrom valueOfLabel( final String text ) {
+        return ( PivotFrom ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
     }
 
@@ -78,13 +72,13 @@ public enum AngleUnit implements Labeled< AngleUnit >,
     }
 
     @Override
-    public AngleUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( AngleUnit ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    public PivotFrom valueOfAbbreviation( final String abbreviatedText ) {
+        return ( PivotFrom ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText, values() );
     }
 
-    public static AngleUnit defaultValue() {
-        return DEGREES;
+    public static PivotFrom defaultValue() {
+        return FRONT;
     }
 
     @Override
@@ -93,5 +87,20 @@ public enum AngleUnit implements Labeled< AngleUnit >,
         //  its custom label form when a Combo Box is hosted by a Table Cell. It
         //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
+    }
+
+    public final String toCanonicalString() {
+        return toString().toLowerCase( Locale.ENGLISH );
+    }
+
+    public static PivotFrom canonicalValueOf( final String canonicalPivotFrom ) {
+        // Cover legacy cases, as we changed terminology at some point.
+        return ( canonicalPivotFrom == null )
+            ? defaultValue()
+            : "back".equalsIgnoreCase( canonicalPivotFrom )
+                ? REAR
+                : "front".equalsIgnoreCase( canonicalPivotFrom )
+                    ? FRONT
+                    : valueOf( canonicalPivotFrom.toUpperCase( Locale.ENGLISH ) );
     }
 }

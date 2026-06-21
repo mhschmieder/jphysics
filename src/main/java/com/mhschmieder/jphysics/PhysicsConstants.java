@@ -30,6 +30,9 @@
  */
 package com.mhschmieder.jphysics;
 
+import com.mhschmieder.jphysics.measure.TemperatureUnit;
+import com.mhschmieder.jphysics.measure.UnitConversion;
+
 /**
  * Container for physical constants.
  */

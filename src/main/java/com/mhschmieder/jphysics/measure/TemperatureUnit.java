@@ -28,29 +28,36 @@
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.measure;
 
 import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
+import com.mhschmieder.jcommons.lang.StringConstants;
 
 import java.util.Locale;
 
 /**
- * The <code>PivotFrom</code> enum is an enumeration for "pivot from" values for
- * rigging or other contexts.
- *
- * NOTE: Other than for string-based values, this is now redundant with JavaFX.
+ * An enumeration of the most relevant temperature units for most contexts.
+ * <p>
+ * NOTE: Temperature Units are all capitalized, unlike most other units, as
+ *  they are named after people.
+ * <p>
+ * NOTE: The labels in this context are ready for use in a Combo Box; whereas
+ *  the abbreviations are more for tagging units to displayed or editable 
+ *  values, and follow international conventions unique to each choice.
  */
-public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > {
-    REAR( "Rear", "r" ), 
-    FRONT( "Front", "f" );
+public enum TemperatureUnit implements Labeled< TemperatureUnit >, 
+        Abbreviated< TemperatureUnit > {
+    KELVIN( "Kelvin", StringConstants.DEGREES_KELVIN ), 
+    CELSIUS( "Celsius", StringConstants.DEGREES_CELSIUS ), 
+    FAHRENHEIT( "Fahrenheit",StringConstants.DEGREES_FAHRENHEIT );
     
     private final String label;
     private final String abbreviation;
     
-    PivotFrom( final String pLabel,
-               final String pAbbreviation ) {
+    TemperatureUnit( final String pLabel,
+                     final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
@@ -61,8 +68,8 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
     }
 
     @Override
-    public PivotFrom valueOfLabel( final String text ) {
-        return ( PivotFrom ) EnumUtilities.getLabeledEnumFromLabel(
+    public TemperatureUnit valueOfLabel( final String text ) {
+        return ( TemperatureUnit ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
     }
 
@@ -72,13 +79,9 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
     }
 
     @Override
-    public PivotFrom valueOfAbbreviation( final String abbreviatedText ) {
-        return ( PivotFrom ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
-                abbreviatedText, values() );
-    }
-
-    public static PivotFrom defaultValue() {
-        return FRONT;
+    public TemperatureUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( TemperatureUnit ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
     @Override
@@ -89,18 +92,22 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
         return label();
     }
 
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
+    public static TemperatureUnit defaultValue() {
+        return KELVIN;
     }
 
-    public static PivotFrom canonicalValueOf( final String canonicalPivotFrom ) {
-        // Cover legacy cases, as we changed terminology at some point.
-        return ( canonicalPivotFrom == null )
-            ? defaultValue()
-            : "back".equalsIgnoreCase( canonicalPivotFrom )
-                ? REAR
-                : "front".equalsIgnoreCase( canonicalPivotFrom )
-                    ? FRONT
-                    : valueOf( canonicalPivotFrom.toUpperCase( Locale.ENGLISH ) );
+    public static TemperatureUnit defaultValueForAir() {
+        return CELSIUS;
+    }
+
+    public final String toCanonicalString() {
+        String canonicalString = toString();
+
+        // NOTE: Temperature Units are all capitalized, unlike most other
+        //  units, as they are named after people.
+        canonicalString = canonicalString.substring( 0, 1 )
+                .concat( canonicalString.substring( 1 ).toLowerCase( Locale.ENGLISH ) );
+
+        return canonicalString;
     }
 }

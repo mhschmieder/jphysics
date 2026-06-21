@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.measure;
 
 import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;

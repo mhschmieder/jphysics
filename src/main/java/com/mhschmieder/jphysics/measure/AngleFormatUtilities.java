@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.measure;
 
 import com.mhschmieder.jcommons.text.NumberFormatUtilities;
 
@@ -37,12 +37,12 @@ import java.text.NumberFormat;
 /**
  * Utility methods for physics; primarily consisting of angle methodologies.
  */
-public final class PhysicsUtilities {
+public final class AngleFormatUtilities {
 
     /**
      * The default constructor is disabled, as this is a static utilities class.
      */
-    private PhysicsUtilities() {}
+    private AngleFormatUtilities() {}
 
     public static String formatAngle( final double angle,
                                       final NumberFormat angleFormat,

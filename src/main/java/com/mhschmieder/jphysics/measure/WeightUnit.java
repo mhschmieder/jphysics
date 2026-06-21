@@ -23,36 +23,30 @@
  *
  * This file is part of the JPhysics Library
  *
- * You should have received a copy of the MIT License along with the JPhysics 
- * Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the
+ * JPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.measure;
 
 import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
-/**
- * An enumeration of the most relevant pressure units for air attenuation.
- * <p>
- * NOTE: The labels account for the standard of leaving a space between the
- *  numeric value and its associated unit. The utility for making a Combo Box
- *  from an enum trims the space; other contexts need the space for separation.
- */
-public enum PressureUnit implements Labeled< PressureUnit >, 
-        Abbreviated< PressureUnit > {
-    KILOPASCALS( "kilopascals", " kPa" ), 
-    PASCALS( "pascals", " Pa" ), 
-    MILLIBARS( "millibars", " mb" ), 
-    ATMOSPHERES( "atmospheres", " atm" );
+public enum WeightUnit implements Labeled< WeightUnit >, 
+        Abbreviated< WeightUnit > {
+    METRIC_TONS( "metric tons", " mt" ), 
+    KILOGRAMS( "kilograms", " kg" ), 
+    GRAMS( "grams", " g" ), 
+    POUNDS( "pounds", " lbs" ), 
+    OUNCES( "ounces", " oz" );
     
     private final String label;
     private final String abbreviation;
     
-    PressureUnit( final String pLabel,
-                  final String pAbbreviation ) {
+    WeightUnit( final String pLabel,
+                final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
@@ -63,8 +57,8 @@ public enum PressureUnit implements Labeled< PressureUnit >,
     }
 
     @Override
-    public PressureUnit valueOfLabel( final String text ) {
-        return ( PressureUnit ) EnumUtilities.getLabeledEnumFromLabel(
+    public WeightUnit valueOfLabel( final String text ) {
+        return ( WeightUnit ) EnumUtilities.getLabeledEnumFromLabel( 
                 text, values() );
     }
 
@@ -74,8 +68,8 @@ public enum PressureUnit implements Labeled< PressureUnit >,
     }
 
     @Override
-    public PressureUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( PressureUnit ) EnumUtilities
+    public WeightUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( WeightUnit ) EnumUtilities
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
@@ -87,11 +81,7 @@ public enum PressureUnit implements Labeled< PressureUnit >,
         return label();
     }
 
-    public static PressureUnit defaultValue() {
-        return PASCALS;
-    }
-
-    public static PressureUnit defaultValueForAir() {
-        return KILOPASCALS;
+    public static WeightUnit defaultValue() {
+        return KILOGRAMS;
     }
 }

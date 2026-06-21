@@ -23,41 +23,36 @@
  *
  * This file is part of the JPhysics Library
  *
- * You should have received a copy of the MIT License along with the
- * JPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the JPhysics 
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.measure;
 
 import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
-import com.mhschmieder.jcommons.lang.StringConstants;
-
-import java.util.Locale;
 
 /**
- * An enumeration of the most relevant temperature units for most contexts.
+ * An enumeration of the most relevant pressure units for air attenuation.
  * <p>
- * NOTE: Temperature Units are all capitalized, unlike most other units, as
- *  they are named after people.
- * <p>
- * NOTE: The labels in this context are ready for use in a Combo Box; whereas
- *  the abbreviations are more for tagging units to displayed or editable 
- *  values, and follow international conventions unique to each choice.
+ * NOTE: The labels account for the standard of leaving a space between the
+ *  numeric value and its associated unit. The utility for making a Combo Box
+ *  from an enum trims the space; other contexts need the space for separation.
  */
-public enum TemperatureUnit implements Labeled< TemperatureUnit >, 
-        Abbreviated< TemperatureUnit > {
-    KELVIN( "Kelvin", StringConstants.DEGREES_KELVIN ), 
-    CELSIUS( "Celsius", StringConstants.DEGREES_CELSIUS ), 
-    FAHRENHEIT( "Fahrenheit",StringConstants.DEGREES_FAHRENHEIT );
+public enum PressureUnit implements Labeled< PressureUnit >, 
+        Abbreviated< PressureUnit > {
+    KILOPASCALS( "kilopascals", " kPa" ), 
+    PASCALS( "pascals", " Pa" ), 
+    MILLIBARS( "millibars", " mb" ), 
+    ATMOSPHERES( "atmospheres", " atm" );
     
     private final String label;
     private final String abbreviation;
     
-    TemperatureUnit( final String pLabel,
-                     final String pAbbreviation ) {
+    PressureUnit( final String pLabel,
+                  final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
@@ -68,8 +63,8 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
     }
 
     @Override
-    public TemperatureUnit valueOfLabel( final String text ) {
-        return ( TemperatureUnit ) EnumUtilities.getLabeledEnumFromLabel(
+    public PressureUnit valueOfLabel( final String text ) {
+        return ( PressureUnit ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
     }
 
@@ -79,8 +74,8 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
     }
 
     @Override
-    public TemperatureUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( TemperatureUnit ) EnumUtilities
+    public PressureUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( PressureUnit ) EnumUtilities
                 .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
@@ -92,22 +87,11 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
         return label();
     }
 
-    public static TemperatureUnit defaultValue() {
-        return KELVIN;
+    public static PressureUnit defaultValue() {
+        return PASCALS;
     }
 
-    public static TemperatureUnit defaultValueForAir() {
-        return CELSIUS;
-    }
-
-    public final String toCanonicalString() {
-        String canonicalString = toString();
-
-        // NOTE: Temperature Units are all capitalized, unlike most other
-        //  units, as they are named after people.
-        canonicalString = canonicalString.substring( 0, 1 )
-                .concat( canonicalString.substring( 1 ).toLowerCase( Locale.ENGLISH ) );
-
-        return canonicalString;
+    public static PressureUnit defaultValueForAir() {
+        return KILOPASCALS;
     }
 }

@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/jphysics
  */
-package com.mhschmieder.jphysics;
+package com.mhschmieder.jphysics.classical;
 
 import com.mhschmieder.jmath.geometry.euclidian.VectorUtilities;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
