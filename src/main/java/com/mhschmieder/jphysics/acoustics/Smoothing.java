@@ -35,33 +35,46 @@ import com.mhschmieder.jcommons.lang.Labeled;
 
 /**
  * Smoothing generally refers to operations over specific Frequency Band Q
- * Factors. This enumeration also provides convenience methods for conversion
- * to octave dividers, which are of course trivial to derive but having them
- * as API allows for clean "foreach" syntax when looping the enum values.
+ * Factors. This enumeration also provides convenience methods for conversion to
+ * octave dividers, which are of course trivial to derive but having them as API
+ * allows for clean "foreach" syntax when looping the enum values.
  * <p>
  * TODO: Fully implement the recommended coding pattern for working with the
  *  new Labeled generic interface and associated list preparation tools.
  */
 public enum Smoothing implements Labeled< Smoothing > {
-    NARROW_BAND( "No Smoothing" ), 
-    SIXTH_OCTAVE_BAND( "1/6 Octave Smoothing" ), 
+    NARROW_BAND( "No Smoothing" ),
+    SIXTH_OCTAVE_BAND( "1/6 Octave Smoothing" ),
     THIRD_OCTAVE_BAND( "1/3 Octave Smoothing" );
-    
+
     private final String label;
-    
+
     Smoothing( final String pLabel ) {
         label = pLabel;
     }
 
-    @Override 
-    public String label() {
-        return label;
+    public static Smoothing fromOctaveDivider( final int octaveDivider ) {
+        Smoothing smoothing = defaultValue();
+
+        switch ( octaveDivider ) {
+            case 0:
+                smoothing = NARROW_BAND;
+                break;
+            case 6:
+                smoothing = SIXTH_OCTAVE_BAND;
+                break;
+            case 3:
+                smoothing = THIRD_OCTAVE_BAND;
+                break;
+            default:
+                break;
+        }
+
+        return smoothing;
     }
 
-    @Override
-    public Smoothing valueOfLabel( final String text ) {
-        return ( Smoothing ) EnumUtilities.getLabeledEnumFromLabel( 
-            text, values() );
+    public static Smoothing defaultValue() {
+        return NARROW_BAND;
     }
 
     @Override
@@ -72,54 +85,41 @@ public enum Smoothing implements Labeled< Smoothing > {
         return label();
     }
 
-    public static Smoothing defaultValue() {
-        return NARROW_BAND;
+    @Override
+    public String label() {
+        return label;
     }
 
-    public static Smoothing fromOctaveDivider(final int octaveDivider) {
-        Smoothing smoothing = defaultValue();
-        
-        switch ( octaveDivider ) {
-        case 0:
-            smoothing = NARROW_BAND;
-            break;
-        case 6:
-            smoothing = SIXTH_OCTAVE_BAND;
-            break;
-        case 3:
-            smoothing = THIRD_OCTAVE_BAND;
-            break;
-        default:
-            break; 
-        }
-        
-        return smoothing;
-    }
-
-    public static int toOctaveDivider(final Smoothing smoothing) {
-        int octaveDivider = -1;
-        
-        switch ( smoothing ) {
-        case NARROW_BAND:
-            octaveDivider = 0;
-            break;
-        case SIXTH_OCTAVE_BAND:
-            octaveDivider = 6;
-            break;
-        case THIRD_OCTAVE_BAND:
-            octaveDivider = 3;
-            break;
-        default:
-            final String errMessage = "Unexpected " 
-                    + smoothing.getClass().getSimpleName() + " "
-                    + smoothing;
-            throw new IllegalArgumentException( errMessage );
-        }
-        
-        return octaveDivider;
+    @Override
+    public Smoothing valueOfLabel( final String text ) {
+        return ( Smoothing ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                    values() );
     }
 
     public final int toOctaveDivider() {
         return toOctaveDivider( this );
+    }
+
+    public static int toOctaveDivider( final Smoothing smoothing ) {
+        int octaveDivider = -1;
+
+        switch ( smoothing ) {
+            case NARROW_BAND:
+                octaveDivider = 0;
+                break;
+            case SIXTH_OCTAVE_BAND:
+                octaveDivider = 6;
+                break;
+            case THIRD_OCTAVE_BAND:
+                octaveDivider = 3;
+                break;
+            default:
+                final String errMessage = "Unexpected " + smoothing.getClass()
+                                                                   .getSimpleName()
+                                          + " " + smoothing;
+                throw new IllegalArgumentException( errMessage );
+        }
+
+        return octaveDivider;
     }
 }

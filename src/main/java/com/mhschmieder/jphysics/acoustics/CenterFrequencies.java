@@ -35,18 +35,13 @@ package com.mhschmieder.jphysics.acoustics;
  * by most people, and concise enough to display as axis tick labels in data
  * charts), for the coarsest Relative bandwidth values (i.e. one octave, and one
  * third octave).
- *
+ * <p>
  * TODO: Provide center frequencies for the lowest octaves that are below human
  *  hearing ranges and also outside the realm of most audio special effects in
  *  movies, as they may be scientifically pertinent for marine mammal studies
  *  and low frequency submarine communications, for instance.
  */
 public final class CenterFrequencies {
-
-    /**
-     * The default constructor is disabled, as this is a static constants class
-     */
-    private CenterFrequencies() {}
 
     public static final double[] NOMINAL_FULL_OCTAVE_CENTER_FREQUENCIES = {
             Double.NaN,     // 0
@@ -66,7 +61,6 @@ public final class CenterFrequencies {
             16000.0d,       // 14
             31500.0d        // 15
     };
-
     public static final double[] NOMINAL_THIRD_OCTAVE_CENTER_FREQUENCIES = {
             Double.NaN,     // 0
             Double.NaN,     // 1
@@ -115,4 +109,10 @@ public final class CenterFrequencies {
             25000.0d,       // 44
             31500.0d,       // 45
     };
+
+    /**
+     * The default constructor is disabled, as this is a static constants class
+     */
+    private CenterFrequencies() {
+    }
 }

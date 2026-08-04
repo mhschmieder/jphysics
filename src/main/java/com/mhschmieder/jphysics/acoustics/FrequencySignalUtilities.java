@@ -57,12 +57,12 @@ public final class FrequencySignalUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    private FrequencySignalUtilities() {}
+    private FrequencySignalUtilities() {
+    }
 
     // Convert magnitude (the square root of the sum of the squares of the real
     // and imaginary parts of a complex value) from linear to decibels.
-    public static double convertComplexValueToDecibels(
-            final Complex complexValue ) {
+    public static double convertComplexValueToDecibels( final Complex complexValue ) {
         return convertMagnitudeToDecibels( complexValue.abs() );
     }
 
@@ -73,8 +73,7 @@ public final class FrequencySignalUtilities {
     }
 
     // Convert the power ratio from linear to decibels.
-    public static double convertPowerRatioToDecibels(
-            final double powerRatio ) {
+    public static double convertPowerRatioToDecibels( final double powerRatio ) {
         return 10.0d * FastMath.log10( powerRatio );
     }
 
@@ -102,14 +101,12 @@ public final class FrequencySignalUtilities {
     }
 
     // Convert the magnitude from decibels to linear.
-    public static double convertMagnitudeFromDecibels(
-            final double magnitude ) {
+    public static double convertMagnitudeFromDecibels( final double magnitude ) {
         return FastMath.pow( 10.0d, magnitude / 20.0d );
     }
 
     // Convert the power ratio from decibels to linear.
-    public static double convertPowerRatioFromDecibels(
-            final double powerRatioDb ) {
+    public static double convertPowerRatioFromDecibels( final double powerRatioDb ) {
         return FastMath.pow( 10.0d, powerRatioDb / 10.0d );
     }
 
@@ -120,7 +117,9 @@ public final class FrequencySignalUtilities {
         // NOTE: We stop one shy of the last index due to comparisons.
         final int binFirstIndex = 0;
         final int binIndexLast = numberOfBins - 1;
-        for ( int binIndex = binFirstIndex; binIndex < binIndexLast; binIndex++ ) {
+        for ( int binIndex = binFirstIndex;
+              binIndex < binIndexLast;
+              binIndex++ ) {
             final double phase = frequencyPhaseData[ binIndex ];
             double nextPhase = frequencyPhaseData[ binIndex + 1 ];
             double phaseDiff = phase - nextPhase;
@@ -141,18 +140,20 @@ public final class FrequencySignalUtilities {
         }
     }
 
+    // Unwrap a frequency phase vector to the [-180 180] range.
+    public static void unwrapPhase( final double[] frequencyPhaseData,
+                                    final int numberOfBins ) {
+        for ( int binIndex = 0; binIndex < numberOfBins; binIndex++ ) {
+            final double frequencyPhase = frequencyPhaseData[ binIndex ];
+            final double unwrappedFrequencyPhase
+                    = unwrapPhase( frequencyPhase );
+            frequencyPhaseData[ binIndex ] = unwrappedFrequencyPhase;
+        }
+    }
+
     // Unwrap a single frequency phase value to the [-180, +180] range.
     public static double unwrapPhase( final double frequencyPhase ) {
         return MathUtilities.normalizeAngleDegrees( frequencyPhase, 0.0d );
-    }
-
-    // Unwrap a frequency phase vector to the [-180 180] range.
-    public static void unwrapPhase( final double[] frequencyPhaseData, final int numberOfBins ) {
-        for ( int binIndex = 0; binIndex < numberOfBins; binIndex++ ) {
-            final double frequencyPhase = frequencyPhaseData[ binIndex ];
-            final double unwrappedFrequencyPhase = unwrapPhase( frequencyPhase );
-            frequencyPhaseData[ binIndex ] = unwrappedFrequencyPhase;
-        }
     }
 
     // Clean up a frequency phase vector to avoid flips between -180 and +180.
@@ -161,16 +162,21 @@ public final class FrequencySignalUtilities {
         // NOTE: We stop one shy of the last index due to comparisons.
         final int binFirstIndex = 0;
         final int binIndexLast = numberOfBins - 1;
-        for ( int binIndex = binFirstIndex; binIndex < binIndexLast; binIndex++ ) {
+        for ( int binIndex = binFirstIndex;
+              binIndex < binIndexLast;
+              binIndex++ ) {
             final double phase = frequencyPhaseData[ binIndex ];
             final double nextPhase = frequencyPhaseData[ binIndex + 1 ];
 
             // Avoid constant flipping between -180 and +180, as this can cause
             // anomalies in downstream charting clients that draw lines to
             // connect neighboring data points, which is perceived as wrapping.
-            if ( ( ( nextPhase > 179.9999d ) && ( nextPhase < 180.0001d ) )
-                    || ( ( nextPhase < -179.9999d ) && ( nextPhase > -180.0001d ) ) ) {
-                frequencyPhaseData[ binIndex + 1 ] = ( phase <= 0.0d ) ? -180.0d : 180.0d;
+            if ( ( ( nextPhase > 179.9999d ) && ( nextPhase < 180.0001d ) ) || (
+                    ( nextPhase < -179.9999d ) && ( nextPhase
+                                                    > -180.0001d ) ) ) {
+                frequencyPhaseData[ binIndex + 1 ] = ( phase <= 0.0d )
+                                                     ? -180.0d
+                                                     : 180.0d;
             }
         }
     }
@@ -181,7 +187,9 @@ public final class FrequencySignalUtilities {
                                         final int numberOfBins ) {
         final int binFirstIndex = 0;
         final int binIndexLast = numberOfBins - 1;
-        for ( int binIndex = binFirstIndex; binIndex <= binIndexLast; binIndex++ ) {
+        for ( int binIndex = binFirstIndex;
+              binIndex <= binIndexLast;
+              binIndex++ ) {
             final double phase = frequencyPhaseData[ binIndex ];
             if ( ( phase > 179.9999d ) && ( phase < 180.0001d ) ) {
                 frequencyPhaseData[ binIndex ] = -180.0d;
@@ -192,33 +200,39 @@ public final class FrequencySignalUtilities {
     // Function to expand a potentially metric abbreviated frequency to its
     // complete specification, accounting for locale formatting, and with or
     // without a space between the number and the unit.
-    public static double expandMetricAbbreviatedFrequency(
-            final String metricAbbreviatedFrequency,
-            final NumberFormat numberParse ) {
+    public static double expandMetricAbbreviatedFrequency( final String metricAbbreviatedFrequency,
+                                                           final NumberFormat numberParse ) {
         // First note whether the string representation even includes units.
         final boolean hasUnits = metricAbbreviatedFrequency.contains( "Hz" );
 
         // Identify whether the scale of the frequency is in Hertz or Kilohertz.
         final boolean isMetricAbbreviated = hasUnits
-            ? metricAbbreviatedFrequency.endsWith( "kHz" )
-            : false;
+                                            ?
+                                            metricAbbreviatedFrequency.endsWith(
+                "kHz" )
+                                            : false;
 
         // Get the index of the units string, not yet accounting for spaces.
         final int unitsIndex = isMetricAbbreviated
-            ? metricAbbreviatedFrequency.lastIndexOf( 'k' )
-            : metricAbbreviatedFrequency.lastIndexOf( 'H' );
+                               ? metricAbbreviatedFrequency.lastIndexOf( 'k' )
+                               : metricAbbreviatedFrequency.lastIndexOf( 'H' );
 
         // Strip the numeric string of its units, and any space separators.
         final int startIndex = 0; // inclusive range bounds
         final int endIndex = unitsIndex + 1; // exclusive range bounds
-        final String numericString = metricAbbreviatedFrequency.substring( startIndex, endIndex )
-                .trim();
+        final String numericString = metricAbbreviatedFrequency.substring(
+                startIndex,
+                endIndex ).trim();
 
         // Use the locale formatting to determine the actual number.
-        final double frequency = NumberFormatUtilities.parseDouble( numericString, numberParse );
+        final double frequency = NumberFormatUtilities.parseDouble(
+                numericString,
+                numberParse );
 
         // Conditionally adjust the frequency to account for thousands.
-        return isMetricAbbreviated ? frequency * 1000.0d : frequency;
+        return isMetricAbbreviated
+               ? frequency * 1000.0d
+               : frequency;
     }
 
     // Gets the center frequency from the band number by implementing the
@@ -226,68 +240,66 @@ public final class FrequencySignalUtilities {
     // is the band number (M is the band number for 1000 Hz), and O is the
     // octave divider, but for simplicity's sake we refactor both M and O to be
     // in terms of third octave values.
-    public static double getCenterFrequencyByBandNumber(
-            final int bandNumber,
-            final double octaveDivider ) {
+    public static double getCenterFrequencyByBandNumber( final int bandNumber,
+                                                         final double octaveDivider ) {
         final double octaveDividerRatio = octaveDivider / 3.0d;
         final int bandNumberAt1kHz = ( int ) FastMath.round(
                 octaveDividerRatio * 30.0d );
-        final int numberOfFractionalOctaveBandsFrom1kHz
-                = bandNumber - bandNumberAt1kHz;
-        return 1000.0d * FastMath.pow(
-                2.0d,
-                numberOfFractionalOctaveBandsFrom1kHz / octaveDivider );
+        final int numberOfFractionalOctaveBandsFrom1kHz = bandNumber
+                                                          - bandNumberAt1kHz;
+        return 1000.0d * FastMath.pow( 2.0d,
+                                       numberOfFractionalOctaveBandsFrom1kHz
+                                       / octaveDivider );
     }
 
     // TODO: Make an enumeration or indexed lookup of octave ranges, as they are
     //  standard and not up for interpretation or product-specific assignments.
     public static int getOctaveOffsetFrom10Hz( final String octaveRange ) {
         int octaveOffset = 0;
-        
+
         switch ( octaveRange ) {
-        case "10 Hz to 20 Hz":
-            octaveOffset = 0;
-            break;
-        case "20 Hz to 40 Hz":
-            octaveOffset = 1;
-            break;
-        case "40 Hz to 80 Hz":
-            octaveOffset = 2;
-            break;
-        case "80 Hz to 160 Hz":
-            octaveOffset = 3;
-            break;
-        case "160 Hz to 315 Hz":
-            octaveOffset = 4;
-            break;
-        case "315 Hz to 630 Hz":
-            octaveOffset = 5;
-            break;
-        case "630 Hz to 1.25 kHz":
-            octaveOffset = 6;
-            break;
-        case "1.25 kHz to 2.5 kHz":
-            octaveOffset = 7;
-            break;
-        case "2.5 kHz to 5 kHz":
-            octaveOffset = 8;
-            break;
-        case "5 kHz to 10 kHz":
-            octaveOffset = 9;
-            break;
-        case "10 kHz to 20 kHz":
-            octaveOffset = 10;
-            break;
-        default:
-            break;
+            case "10 Hz to 20 Hz":
+                octaveOffset = 0;
+                break;
+            case "20 Hz to 40 Hz":
+                octaveOffset = 1;
+                break;
+            case "40 Hz to 80 Hz":
+                octaveOffset = 2;
+                break;
+            case "80 Hz to 160 Hz":
+                octaveOffset = 3;
+                break;
+            case "160 Hz to 315 Hz":
+                octaveOffset = 4;
+                break;
+            case "315 Hz to 630 Hz":
+                octaveOffset = 5;
+                break;
+            case "630 Hz to 1.25 kHz":
+                octaveOffset = 6;
+                break;
+            case "1.25 kHz to 2.5 kHz":
+                octaveOffset = 7;
+                break;
+            case "2.5 kHz to 5 kHz":
+                octaveOffset = 8;
+                break;
+            case "5 kHz to 10 kHz":
+                octaveOffset = 9;
+                break;
+            case "10 kHz to 20 kHz":
+                octaveOffset = 10;
+                break;
+            default:
+                break;
         }
-        
+
         return octaveOffset;
     }
 
-    public static String getFormattedFrequency(
-            final double frequency,
-            final NumberFormat numberFormat ) {
+    public static String getFormattedFrequency( final double frequency,
+                                                final NumberFormat numberFormat ) {
         String formattedFrequency = "";
 
         if ( frequency < 1000.0d ) {
@@ -301,7 +313,8 @@ public final class FrequencySignalUtilities {
             // Use up to four digits of precision, to cover the kHz scaling.
             numberFormat.setMinimumFractionDigits( 0 );
             numberFormat.setMaximumFractionDigits( 4 );
-            formattedFrequency = numberFormat.format( 0.001d * frequency ) + " kHz";
+            formattedFrequency = numberFormat.format( 0.001d * frequency )
+                                 + " kHz";
         }
 
         return formattedFrequency;
@@ -314,11 +327,11 @@ public final class FrequencySignalUtilities {
     // NOTE: Due to the irrelevance of sigma variance in most contexts, this is
     //  equivalent to returning the pure sinusoidal filter slope as a function
     //  of frequency.
-    public static Complex convertFrequencyToSDomain(
-            final double frequencyHz ) {
+    public static Complex convertFrequencyToSDomain( final double frequencyHz ) {
         // Get the angular frequency in radians based on the frequency in Hertz.
-        final double angularFrequencyRadians = FrequencySignalUtilities
-                .getAngularFrequencyRadians( frequencyHz );
+        final double angularFrequencyRadians
+                = FrequencySignalUtilities.getAngularFrequencyRadians(
+                frequencyHz );
 
         // Calculate the sinusoidal filter slope as a function of frequency
         // "f": slope = -J*2*PI*f (where J = sqrt(-1)), and return as the omega
@@ -328,8 +341,7 @@ public final class FrequencySignalUtilities {
     }
 
     // Get the angular frequency in radians based on the frequency in Hertz.
-    public static double getAngularFrequencyRadians(
-            final double frequencyHz ) {
+    public static double getAngularFrequencyRadians( final double frequencyHz ) {
         return MathConstants.TWO_PI * frequencyHz;
     }
 
@@ -344,11 +356,10 @@ public final class FrequencySignalUtilities {
         return referenceQFactor * OCTAVE_BANDWIDTH_TO_QUALITY_FACTOR_RATIO;
     }
 
-    public static int[] getClampedFrequencyRangeIndices(
-            final double[] bins,
-            final boolean useLimitedFrequencyRange,
-            final double lowestFrequencyToDisplay,
-            final double highestFrequencyToDisplay ) {
+    public static int[] getClampedFrequencyRangeIndices( final double[] bins,
+                                                         final boolean useLimitedFrequencyRange,
+                                                         final double lowestFrequencyToDisplay,
+                                                         final double highestFrequencyToDisplay ) {
         final int numberOfBins = bins.length;
 
         // Find the start and end indices for the valid sub-range of the bins.
@@ -358,8 +369,8 @@ public final class FrequencySignalUtilities {
         // TODO: Recode this to use rounding instead?
         int startFreqIndex = 0;
         int stopFreqIndex = useLimitedFrequencyRange
-                ? startFreqIndex
-                : numberOfBins - 1;
+                            ? startFreqIndex
+                            : numberOfBins - 1;
 
         int freqIndex = startFreqIndex;
         if ( useLimitedFrequencyRange ) {

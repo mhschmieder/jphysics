@@ -38,32 +38,25 @@ import com.mhschmieder.jcommons.lang.Labeled;
  * An enumeration of the most relevant humidity units for air attenuation.
  * <p>
  * NOTE: The labels account for the standard of leaving a space between the
- *  numeric value and its associated unit. The utility for making a Combo Box
- *  from an enum trims the space; other contexts need the space for separation.
+ * numeric value and its associated unit. The utility for making a Combo Box
+ * from an enum trims the space; other contexts need the space for separation.
  */
-public enum HumidityUnit implements Labeled< HumidityUnit >, 
-        Abbreviated< HumidityUnit > {
-    RELATIVE( "relative", "%" ), 
+public enum HumidityUnit
+        implements Labeled< HumidityUnit >, Abbreviated< HumidityUnit > {
+    RELATIVE( "relative", "%" ),
     MOLAR( "molar", " moles" );
-    
+
     private final String label;
     private final String abbreviation;
-    
+
     HumidityUnit( final String pLabel,
                   final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public HumidityUnit valueOfLabel( final String text ) {
-        return ( HumidityUnit ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+    public static HumidityUnit defaultValue() {
+        return RELATIVE;
     }
 
     @Override
@@ -73,8 +66,9 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
 
     @Override
     public HumidityUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( HumidityUnit ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+        return ( HumidityUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
     }
 
     @Override
@@ -85,7 +79,14 @@ public enum HumidityUnit implements Labeled< HumidityUnit >,
         return label();
     }
 
-    public static HumidityUnit defaultValue() {
-        return RELATIVE;
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public HumidityUnit valueOfLabel( final String text ) {
+        return ( HumidityUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                       values() );
     }
 }

@@ -40,56 +40,26 @@ import java.util.Locale;
 /**
  * An enumeration of the most relevant temperature units for most contexts.
  * <p>
- * NOTE: Temperature Units are all capitalized, unlike most other units, as
- *  they are named after people.
+ * NOTE: Temperature Units are all capitalized, unlike most other units, as they
+ * are named after people.
  * <p>
  * NOTE: The labels in this context are ready for use in a Combo Box; whereas
- *  the abbreviations are more for tagging units to displayed or editable 
- *  values, and follow international conventions unique to each choice.
+ * the abbreviations are more for tagging units to displayed or editable values,
+ * and follow international conventions unique to each choice.
  */
-public enum TemperatureUnit implements Labeled< TemperatureUnit >, 
-        Abbreviated< TemperatureUnit > {
-    KELVIN( "Kelvin", StringConstants.DEGREES_KELVIN ), 
-    CELSIUS( "Celsius", StringConstants.DEGREES_CELSIUS ), 
-    FAHRENHEIT( "Fahrenheit",StringConstants.DEGREES_FAHRENHEIT );
-    
+public enum TemperatureUnit
+        implements Labeled< TemperatureUnit >, Abbreviated< TemperatureUnit > {
+    KELVIN( "Kelvin", StringConstants.DEGREES_KELVIN ),
+    CELSIUS( "Celsius", StringConstants.DEGREES_CELSIUS ),
+    FAHRENHEIT( "Fahrenheit", StringConstants.DEGREES_FAHRENHEIT );
+
     private final String label;
     private final String abbreviation;
-    
+
     TemperatureUnit( final String pLabel,
                      final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
-    }
-
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public TemperatureUnit valueOfLabel( final String text ) {
-        return ( TemperatureUnit ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
-    }
-
-    @Override
-    public String abbreviation() {
-        return abbreviation;
-    }
-
-    @Override
-    public TemperatureUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( TemperatureUnit ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
-    }
-
-    @Override
-    public String toString() {
-        // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell. It
-        //  also addresses an issue with the Jackson parser if in a JSON file.
-        return label();
     }
 
     public static TemperatureUnit defaultValue() {
@@ -100,14 +70,47 @@ public enum TemperatureUnit implements Labeled< TemperatureUnit >,
         return CELSIUS;
     }
 
+    @Override
+    public String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public TemperatureUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( TemperatureUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
+    }
+
     public final String toCanonicalString() {
         String canonicalString = toString();
 
         // NOTE: Temperature Units are all capitalized, unlike most other
         //  units, as they are named after people.
         canonicalString = canonicalString.substring( 0, 1 )
-                .concat( canonicalString.substring( 1 ).toLowerCase( Locale.ENGLISH ) );
+                                         .concat( canonicalString.substring( 1 )
+                                                                 .toLowerCase(
+                                                                         Locale.ENGLISH ) );
 
         return canonicalString;
+    }
+
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
+        return label();
+    }
+
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public TemperatureUnit valueOfLabel( final String text ) {
+        return ( TemperatureUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                          values() );
     }
 }

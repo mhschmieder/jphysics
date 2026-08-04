@@ -39,22 +39,22 @@ import com.mhschmieder.jcommons.lang.Labeled;
  * particular acoustic engineering contexts where one is often more focused on
  * the practicalities of which center frequencies can be easily measured for
  * their response. The official definition dictionary definition is as follows:
- *
+ * <p>
  * For an electric filter, the ratio of the bandwidth being considered to a
  * specified reference bandwidth, such as the bandwidth between frequencies at
  * which there is an attenuation of 3 decibels.
- *
+ * <p>
  * This specific enumeration is meant to represent typical acoustical
  * measurement and detection environments, most commonly with a focus on what
  * are useful frequencies for evaluation and analysis, such as for music but
  * also for audio signals related to marine mammals, environment, sonar, etc.
- *
+ * <p>
  * TODO: Expand this to also cover Relative Bandwidths that are multiple
  *  octaves? No need to expand in the other direction, as 1/48 octave is in
  *  most cases a single frequency (depending on the octave range context).
  */
 public enum RelativeBandwidth implements Labeled< RelativeBandwidth >,
-        Abbreviated< RelativeBandwidth > {
+                                         Abbreviated< RelativeBandwidth > {
     ONE_OCTAVE( "1 octave", "1" ),
     THIRD_OCTAVE( "1/3 octave", "1/3" ),
     SIXTH_OCTAVE( "1/6 octave", "1/6" ),
@@ -71,15 +71,8 @@ public enum RelativeBandwidth implements Labeled< RelativeBandwidth >,
         abbreviation = pAbbreviation;
     }
 
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public RelativeBandwidth valueOfLabel( final String text ) {
-        return ( RelativeBandwidth ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+    public static RelativeBandwidth defaultValue() {
+        return THIRD_OCTAVE;
     }
 
     @Override
@@ -88,11 +81,10 @@ public enum RelativeBandwidth implements Labeled< RelativeBandwidth >,
     }
 
     @Override
-    public RelativeBandwidth valueOfAbbreviation(
-            final String abbreviatedText ) {
-        return ( RelativeBandwidth ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation(
-                        abbreviatedText, values() );
+    public RelativeBandwidth valueOfAbbreviation( final String abbreviatedText ) {
+        return ( RelativeBandwidth ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
     }
 
     @Override
@@ -103,54 +95,20 @@ public enum RelativeBandwidth implements Labeled< RelativeBandwidth >,
         return label();
     }
 
-    public static RelativeBandwidth defaultValue() {
-        return THIRD_OCTAVE;
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public RelativeBandwidth valueOfLabel( final String text ) {
+        return ( RelativeBandwidth ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                            values() );
     }
 
     /**
-     * Returns the octave divider corresponding to the Relative Bandwidth,
-     * which is always an integer and can be used as the denominator in various
-     * acoustical calculations.
-     *
-     * @param relativeBandwidth
-     *            The Relative bandwidth to convert to an Octave Divider
-     * @return The integer value corresponding to the division factor to apply
-     *         relative to a full octave, for the provided Relative Bandwidth
-     *         value
-     */
-    public static int toOctaveDivider(
-            final RelativeBandwidth relativeBandwidth ) {
-        int octaveDivider = 3;
-        
-        switch ( relativeBandwidth ) {
-        case ONE_OCTAVE:
-            octaveDivider = 1;
-            break;
-        case THIRD_OCTAVE:
-            octaveDivider = 3;
-            break;
-        case SIXTH_OCTAVE:
-            octaveDivider = 6;
-            break;
-        case TWELFTH_OCTAVE:
-            octaveDivider = 12;
-            break;
-        case TWENTY_FOURTH_OCTAVE:
-            octaveDivider = 24;
-            break;
-        case FORTY_EIGHTH_OCTAVE:
-            octaveDivider = 48;
-            break;
-        default:
-            break;
-        }
-        
-        return octaveDivider;
-    }
-
-    /**
-     * Returns the octave divider corresponding to the Relative Bandwidth,
-     * which is always an integer and can be used as the denominator in various
+     * Returns the octave divider corresponding to the Relative Bandwidth, which
+     * is always an integer and can be used as the denominator in various
      * acoustical calculations.
      *
      * @return The integer value corresponding to the division factor to apply
@@ -158,5 +116,45 @@ public enum RelativeBandwidth implements Labeled< RelativeBandwidth >,
      */
     public final int toOctaveDivider() {
         return toOctaveDivider( this );
+    }
+
+    /**
+     * Returns the octave divider corresponding to the Relative Bandwidth, which
+     * is always an integer and can be used as the denominator in various
+     * acoustical calculations.
+     *
+     * @param relativeBandwidth The Relative bandwidth to convert to an Octave
+     *                          Divider
+     * @return The integer value corresponding to the division factor to apply
+     *         relative to a full octave, for the provided Relative Bandwidth
+     *         value
+     */
+    public static int toOctaveDivider( final RelativeBandwidth relativeBandwidth ) {
+        int octaveDivider = 3;
+
+        switch ( relativeBandwidth ) {
+            case ONE_OCTAVE:
+                octaveDivider = 1;
+                break;
+            case THIRD_OCTAVE:
+                octaveDivider = 3;
+                break;
+            case SIXTH_OCTAVE:
+                octaveDivider = 6;
+                break;
+            case TWELFTH_OCTAVE:
+                octaveDivider = 12;
+                break;
+            case TWENTY_FOURTH_OCTAVE:
+                octaveDivider = 24;
+                break;
+            case FORTY_EIGHTH_OCTAVE:
+                octaveDivider = 48;
+                break;
+            default:
+                break;
+        }
+
+        return octaveDivider;
     }
 }

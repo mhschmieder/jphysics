@@ -39,31 +39,37 @@ import java.util.Locale;
 /**
  * The <code>PivotFrom</code> enum is an enumeration for "pivot from" values for
  * rigging or other contexts.
- *
+ * <p>
  * NOTE: Other than for string-based values, this is now redundant with JavaFX.
  */
-public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > {
-    REAR( "Rear", "r" ), 
+public enum PivotFrom
+        implements Labeled< PivotFrom >, Abbreviated< PivotFrom > {
+    REAR( "Rear", "r" ),
     FRONT( "Front", "f" );
-    
+
     private final String label;
     private final String abbreviation;
-    
+
     PivotFrom( final String pLabel,
                final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    @Override
-    public String label() {
-        return label;
+    public static PivotFrom canonicalValueOf( final String canonicalPivotFrom ) {
+        // Cover legacy cases, as we changed terminology at some point.
+        return ( canonicalPivotFrom == null )
+               ? defaultValue()
+               : "back".equalsIgnoreCase( canonicalPivotFrom )
+                 ? REAR
+                 : "front".equalsIgnoreCase( canonicalPivotFrom )
+                   ? FRONT
+                   :
+                   valueOf( canonicalPivotFrom.toUpperCase( Locale.ENGLISH ) );
     }
 
-    @Override
-    public PivotFrom valueOfLabel( final String text ) {
-        return ( PivotFrom ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+    public static PivotFrom defaultValue() {
+        return FRONT;
     }
 
     @Override
@@ -74,11 +80,12 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
     @Override
     public PivotFrom valueOfAbbreviation( final String abbreviatedText ) {
         return ( PivotFrom ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
-                abbreviatedText, values() );
+                abbreviatedText,
+                values() );
     }
 
-    public static PivotFrom defaultValue() {
-        return FRONT;
+    public final String toCanonicalString() {
+        return toString().toLowerCase( Locale.ENGLISH );
     }
 
     @Override
@@ -89,18 +96,14 @@ public enum PivotFrom implements Labeled< PivotFrom >, Abbreviated< PivotFrom > 
         return label();
     }
 
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
+    @Override
+    public String label() {
+        return label;
     }
 
-    public static PivotFrom canonicalValueOf( final String canonicalPivotFrom ) {
-        // Cover legacy cases, as we changed terminology at some point.
-        return ( canonicalPivotFrom == null )
-            ? defaultValue()
-            : "back".equalsIgnoreCase( canonicalPivotFrom )
-                ? REAR
-                : "front".equalsIgnoreCase( canonicalPivotFrom )
-                    ? FRONT
-                    : valueOf( canonicalPivotFrom.toUpperCase( Locale.ENGLISH ) );
+    @Override
+    public PivotFrom valueOfLabel( final String text ) {
+        return ( PivotFrom ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                    values() );
     }
 }

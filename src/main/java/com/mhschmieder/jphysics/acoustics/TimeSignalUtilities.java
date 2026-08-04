@@ -42,12 +42,12 @@ public final class TimeSignalUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    private TimeSignalUtilities() {}
+    private TimeSignalUtilities() {
+    }
 
-    public static double[] adjustTimeSignal(
-            final double[] amplitudeVector,
-            final double timeSignalAdjustmentMs,
-            final double sampleRateKhz ) {
+    public static double[] adjustTimeSignal( final double[] amplitudeVector,
+                                             final double timeSignalAdjustmentMs,
+                                             final double sampleRateKhz ) {
         final int numberOfSamples = amplitudeVector.length;
 
         final double[] timeAdjustedAmplitudeVector
@@ -56,21 +56,20 @@ public final class TimeSignalUtilities {
         // TODO: Determine whether we should use floor or ceil vs. round.
         // NOTE: Possibly we should use floor if time adjustment is negative
         // and ceil if time adjustment is positive?
-        final int timeSignalAdjustmentSamples = ( int ) FastMath
-                .round( timeSignalAdjustmentMs * sampleRateKhz );
+        final int timeSignalAdjustmentSamples = ( int ) FastMath.round(
+                timeSignalAdjustmentMs * sampleRateKhz );
 
         // Move the Time Signal.
         if ( timeSignalAdjustmentSamples > 0 ) {
             // Move time to the left.
             final int firstAdjustedSampleIndex = 0;
             final int firstUnMeasuredSampleIndex = numberOfSamples
-                    - timeSignalAdjustmentSamples;
+                                                   - timeSignalAdjustmentSamples;
             for ( int sampleIndex = firstAdjustedSampleIndex;
                   sampleIndex < firstUnMeasuredSampleIndex;
                   sampleIndex++ ) {
-                timeAdjustedAmplitudeVector[ sampleIndex ]
-                        = amplitudeVector[ sampleIndex
-                        + timeSignalAdjustmentSamples ];
+                timeAdjustedAmplitudeVector[ sampleIndex ] = amplitudeVector[
+                        sampleIndex + timeSignalAdjustmentSamples ];
             }
 
             // Zero-fill the unmeasured samples that open up to the right.
@@ -84,13 +83,12 @@ public final class TimeSignalUtilities {
             // Move time to the right.
             final int lastAdjustedSampleIndex = numberOfSamples - 1;
             final int lastUnmeasuredSampleIndex = 0
-                    - timeSignalAdjustmentSamples;
+                                                  - timeSignalAdjustmentSamples;
             for ( int sampleIndex = lastAdjustedSampleIndex;
                   sampleIndex > lastUnmeasuredSampleIndex;
                   sampleIndex-- ) {
-                timeAdjustedAmplitudeVector[ sampleIndex ]
-                        = amplitudeVector[ sampleIndex
-                        + timeSignalAdjustmentSamples ];
+                timeAdjustedAmplitudeVector[ sampleIndex ] = amplitudeVector[
+                        sampleIndex + timeSignalAdjustmentSamples ];
             }
 
             // Zero-fill the unmeasured samples that open up to the left.
@@ -105,6 +103,16 @@ public final class TimeSignalUtilities {
         return timeAdjustedAmplitudeVector;
     }
 
+    // TODO: Provide an alternate version that gives a begin/end range and a
+    // time increment for an auto-generated or implied time index series?
+    public static double getPeakTimeMs( final double[] amplitudeVector,
+                                        final double[] timeRecordIncrements ) {
+        final int peakTimeIndex = getPeakTimeIndex( amplitudeVector );
+        final double peakTimeMs = getPeakTimeMs( peakTimeIndex,
+                                                 timeRecordIncrements );
+        return peakTimeMs;
+    }
+
     // TODO: Make sure this works for all amplitude vectors, and not just the
     // original client context for the authoring of this method, where the
     // values are normalized and centered about zero as the origin.
@@ -115,7 +123,9 @@ public final class TimeSignalUtilities {
         int peakTimeIndex = 0;
 
         final int sampleIndexLast = amplitudeVector.length - 1;
-        for ( int sampleIndex = 0; sampleIndex <= sampleIndexLast; sampleIndex++ ) {
+        for ( int sampleIndex = 0;
+              sampleIndex <= sampleIndexLast;
+              sampleIndex++ ) {
             y = amplitudeVector[ sampleIndex ];
             if ( FastMath.abs( y ) > maxAbsValue ) {
                 maxAbsValue = FastMath.abs( y );
@@ -124,17 +134,6 @@ public final class TimeSignalUtilities {
         }
 
         return peakTimeIndex;
-    }
-
-    // TODO: Provide an alternate version that gives a begin/end range and a
-    // time increment for an auto-generated or implied time index series?
-    public static double getPeakTimeMs( final double[] amplitudeVector,
-                                        final double[] timeRecordIncrements ) {
-        final int peakTimeIndex = getPeakTimeIndex( amplitudeVector );
-        final double peakTimeMs = getPeakTimeMs(
-                peakTimeIndex,
-                timeRecordIncrements );
-        return peakTimeMs;
     }
 
     // TODO: Provide an alternate version that gives a begin/end range and a

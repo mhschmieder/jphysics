@@ -39,16 +39,18 @@ import org.apache.commons.math3.util.FastMath;
  * This is an enumeration of possible resolution values for an SPL Palette. It
  * is done as an enumeration as some values are absolute and others are relative
  * to the overall SPL Dynamic Range.
- *
+ * <p>
  * Note that there are two categories of values, where the first two are
  * strictly based on the number of unique color hues shown, and are based on
- * built-in limitations of standard color processing for basic image file types.
- *
+ * built-in limitations of standard color processing for basic image file
+ * types.
+ * <p>
  * The second set of values are more in the acoustics domain and are commonly
  * used in visualization contexts to help users see where values pass a
  * threshold. This is especially useful for showing where sound levels double.
  */
-public enum SplPaletteResolution implements Abbreviated< SplPaletteResolution > {
+public enum SplPaletteResolution
+        implements Abbreviated< SplPaletteResolution > {
     // Although these enumeration entries seem overly verbose and unnecessary,
     // the java programming language does not allow variables to start with a
     // number vs. a letter.
@@ -64,48 +66,47 @@ public enum SplPaletteResolution implements Abbreviated< SplPaletteResolution > 
         abbreviation = pAbbreviation;
     }
 
+    public static final SplPaletteResolution defaultValue() {
+        return RES_64;
+    }
+
     @Override
     public final String abbreviation() {
         return abbreviation;
     }
 
     @Override
-    public SplPaletteResolution valueOfAbbreviation(
-            final String abbreviatedText ) {
-        return ( SplPaletteResolution ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation(
-                        abbreviatedText, values() );
-    }
-
-    public static final SplPaletteResolution defaultValue() {
-        return RES_64;
+    public SplPaletteResolution valueOfAbbreviation( final String abbreviatedText ) {
+        return ( SplPaletteResolution ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
     }
 
     public final int getNumberOfPaletteColors( final int splRangeDb ) {
         int numberOfPaletteColors = 64;
-        
+
         switch ( this ) {
-        case RES_256:
-            numberOfPaletteColors = 256;
-            break;
-        case RES_64:
-            numberOfPaletteColors = 64;
-            break;
-        case RES_1DB:
-            numberOfPaletteColors = splRangeDb;
-            break;
-        case RES_2DB:
-            numberOfPaletteColors = ( int ) FastMath.ceil(
-                    MathConstants.ONE_HALF * splRangeDb );
-            break;
-        case RES_3DB:
-            numberOfPaletteColors = ( int ) FastMath.ceil(
-                    MathConstants.ONE_THIRD * splRangeDb );
-            break;
-        default:
-            return 64;
+            case RES_256:
+                numberOfPaletteColors = 256;
+                break;
+            case RES_64:
+                numberOfPaletteColors = 64;
+                break;
+            case RES_1DB:
+                numberOfPaletteColors = splRangeDb;
+                break;
+            case RES_2DB:
+                numberOfPaletteColors = ( int ) FastMath.ceil(
+                        MathConstants.ONE_HALF * splRangeDb );
+                break;
+            case RES_3DB:
+                numberOfPaletteColors = ( int ) FastMath.ceil(
+                        MathConstants.ONE_THIRD * splRangeDb );
+                break;
+            default:
+                return 64;
         }
-        
+
         return numberOfPaletteColors;
     }
 }

@@ -38,38 +38,33 @@ import com.mhschmieder.jcommons.lang.Labeled;
  * An enumeration of the most relevant length units for linear distance.
  * <p>
  * NOTE: The labels account for the standard of leaving a space between the
- *  numeric value and its associated unit. The utility for making a Combo Box
- *  from an enum trims the space; other contexts need the space for separation.
+ * numeric value and its associated unit. The utility for making a Combo Box
+ * from an enum trims the space; other contexts need the space for separation.
  * NOTE: The "Unitless" field is included because sometimes this is an interim
- *  value until units are known, or units weren't specified but we need to 
- *  track that as distinct from units not initialized within the client code.
+ * value until units are known, or units weren't specified but we need to track
+ * that as distinct from units not initialized within the client code.
  */
-public enum DistanceUnit implements Labeled< DistanceUnit >, 
-        Abbreviated< DistanceUnit > {
-    UNITLESS( "unitless", "" ), 
-    MILLIMETERS( "millimeters", " mm" ), 
-    CENTIMETERS( "centimeters", " cm" ), 
-    METERS( "meters", " m" ), 
+public enum DistanceUnit
+        implements Labeled< DistanceUnit >, Abbreviated< DistanceUnit > {
+    UNITLESS( "unitless", "" ),
+    MILLIMETERS( "millimeters", " mm" ),
+    CENTIMETERS( "centimeters", " cm" ),
+    METERS( "meters", " m" ),
     INCHES( "inches", " in" ),
-    FEET( "feet", " ft" ), 
+    FEET( "feet", " ft" ),
     YARDS( "yards", " yd" );
-    
+
     private final String label;
     private final String abbreviation;
-    
+
     DistanceUnit( final String pLabel,
                   final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    public String label() {
-        return label;
-    }
-
-    public DistanceUnit valueOfLabel( final String text ) {
-        return ( DistanceUnit ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+    public static DistanceUnit defaultValue() {
+        return METERS;
     }
 
     public String abbreviation() {
@@ -77,12 +72,9 @@ public enum DistanceUnit implements Labeled< DistanceUnit >,
     }
 
     public DistanceUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( DistanceUnit ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
-    }
-
-    public static DistanceUnit defaultValue() {
-        return METERS;
+        return ( DistanceUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
     }
 
     @Override
@@ -91,5 +83,14 @@ public enum DistanceUnit implements Labeled< DistanceUnit >,
         //  its custom label form when a Combo Box is hosted by a Table Cell. It
         //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
+    }
+
+    public String label() {
+        return label;
+    }
+
+    public DistanceUnit valueOfLabel( final String text ) {
+        return ( DistanceUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                       values() );
     }
 }

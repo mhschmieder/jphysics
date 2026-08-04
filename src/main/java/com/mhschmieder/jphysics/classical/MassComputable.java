@@ -42,5 +42,4 @@ public interface MassComputable {
     double getWeightKg();
 
     boolean isCogValid();
-
 }

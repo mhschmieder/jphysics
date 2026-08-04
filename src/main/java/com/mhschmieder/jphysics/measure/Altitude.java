@@ -36,16 +36,19 @@ import org.apache.commons.math3.util.FastMath;
 import java.util.Locale;
 
 public enum Altitude {
-    LOW, MEDIUM, HIGH;
-
-    public static Altitude defaultValue() {
-        return LOW;
-    }
+    LOW,
+    MEDIUM,
+    HIGH;
 
     public static Altitude fromCanonicalString( final String altitudeCanonicalString ) {
         return ( altitudeCanonicalString != null )
-            ? valueOf( altitudeCanonicalString.toUpperCase( Locale.ENGLISH ) )
-            : defaultValue();
+               ?
+               valueOf( altitudeCanonicalString.toUpperCase( Locale.ENGLISH ) )
+               : defaultValue();
+    }
+
+    public static Altitude defaultValue() {
+        return LOW;
     }
 
     public final String toCanonicalString() {
@@ -55,30 +58,35 @@ public enum Altitude {
     public final String toPresentationString( final DistanceUnit distanceUnit ) {
         final String distanceUnitString = distanceUnit.label();
 
-        final int lowAltitude = ( int ) FastMath
-                .round( UnitConversion.convertDistance( PhysicsConstants.ALTITUDE_LOW_METERS,
-                                                        DistanceUnit.METERS,
-                                                        distanceUnit ) );
-        final int highAltitude = ( int ) FastMath
-                .round( UnitConversion.convertDistance( PhysicsConstants.ALTITUDE_HIGH_METERS,
-                                                        DistanceUnit.METERS,
-                                                        distanceUnit ) );
+        final int lowAltitude
+                = ( int ) FastMath.round( UnitConversion.convertDistance(
+                PhysicsConstants.ALTITUDE_LOW_METERS,
+                DistanceUnit.METERS,
+                distanceUnit ) );
+        final int highAltitude
+                = ( int ) FastMath.round( UnitConversion.convertDistance(
+                PhysicsConstants.ALTITUDE_HIGH_METERS,
+                DistanceUnit.METERS,
+                distanceUnit ) );
 
         switch ( this ) {
-        case LOW:
-            return "Below " + Integer.toString( lowAltitude ) + " " //$NON-NLS-1$//$NON-NLS-2$
-                    + distanceUnitString;
-        case MEDIUM:
-            return "Between " + Integer.toString( lowAltitude ) + " and " //$NON-NLS-1$ //$NON-NLS-2$
-                    + Integer.toString( highAltitude ) + " " //$NON-NLS-1$
-                    + distanceUnitString;
-        case HIGH:
-            return "Above " + Integer.toString( highAltitude ) + " " //$NON-NLS-1$//$NON-NLS-2$
-                    + distanceUnitString;
-        default:
-            final String errMessage = "Unexpected Altitude " + this; //$NON-NLS-1$
-            throw new IllegalArgumentException( errMessage );
+            case LOW:
+                return "Below " + Integer.toString( lowAltitude ) + " "
+                       //$NON-NLS-1$//$NON-NLS-2$
+                       + distanceUnitString;
+            case MEDIUM:
+                return "Between " + Integer.toString( lowAltitude ) + " and "
+                       //$NON-NLS-1$ //$NON-NLS-2$
+                       + Integer.toString( highAltitude ) + " " //$NON-NLS-1$
+                       + distanceUnitString;
+            case HIGH:
+                return "Above " + Integer.toString( highAltitude ) + " "
+                       //$NON-NLS-1$//$NON-NLS-2$
+                       + distanceUnitString;
+            default:
+                final String errMessage = "Unexpected Altitude "
+                                          + this; //$NON-NLS-1$
+                throw new IllegalArgumentException( errMessage );
         }
     }
-
 }

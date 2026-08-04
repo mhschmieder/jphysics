@@ -41,14 +41,17 @@ import java.text.NumberFormat;
 public final class AngleFormatUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private AngleFormatUtilities() {}
+    private AngleFormatUtilities() {
+    }
 
     public static String formatAngle( final double angle,
                                       final NumberFormat angleFormat,
                                       final AngleUnit angleUnit ) {
-        final String formattedAngle = NumberFormatUtilities.formatDouble( angle, angleFormat )
+        final String formattedAngle =
+                NumberFormatUtilities.formatDouble( angle, angleFormat )
                 + angleUnit.abbreviation();
 
         return formattedAngle;
@@ -62,22 +65,26 @@ public final class AngleFormatUtilities {
             final String angleUnitString = angleUnit.abbreviation();
 
             // Make sure to strip the Angle Unit before converting to a double.
-            final int angleUnitIndex = formattedAngle.indexOf( angleUnitString );
+            final int angleUnitIndex
+                    = formattedAngle.indexOf( angleUnitString );
             final String strippedFormattedAngle = ( angleUnitIndex > 0 )
-                ? formattedAngle.substring( 0, angleUnitIndex )
-                : formattedAngle;
-            final double angle = NumberFormatUtilities.parseDouble( strippedFormattedAngle,
-                                                                    angleFormat );
+                                                  ? formattedAngle.substring( 0,
+                                                                              angleUnitIndex )
+                                                  : formattedAngle;
+            final double angle = NumberFormatUtilities.parseDouble(
+                    strippedFormattedAngle,
+                    angleFormat );
 
             return angle;
         }
         catch ( final IndexOutOfBoundsException | NullPointerException e ) {
             e.printStackTrace();
 
-            final double angle = NumberFormatUtilities.parseDouble( formattedAngle, angleFormat );
+            final double angle = NumberFormatUtilities.parseDouble(
+                    formattedAngle,
+                    angleFormat );
 
             return angle;
         }
     }
-
 }

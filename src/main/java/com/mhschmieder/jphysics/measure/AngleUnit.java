@@ -39,37 +39,30 @@ import com.mhschmieder.jcommons.lang.StringConstants;
  * An enumeration of the most relevant angle units for angular distance.
  * <p>
  * NOTE: The labels account for the standard of leaving a space between the
- *  numeric value and its associated unit. The utility for making a Combo Box
- *  from an enum trims the space; other contexts need the space for separation.
+ * numeric value and its associated unit. The utility for making a Combo Box
+ * from an enum trims the space; other contexts need the space for separation.
  * NOTE: The radians field is included because sometimes it is helpful to use
- *  switch statements for degrees vs. radians in computational code bases,
- *  especially when translated from other languages.
- * NOTE: Degrees as minutes, seconds, etc., are not included here, as the main
- *  application for such formats is in the geo space, which is in another API.
+ * switch statements for degrees vs. radians in computational code bases,
+ * especially when translated from other languages. NOTE: Degrees as minutes,
+ * seconds, etc., are not included here, as the main application for such
+ * formats is in the geo space, which is in another API.
  */
-public enum AngleUnit implements Labeled< AngleUnit >,
-        Abbreviated< AngleUnit > {
-    DEGREES( "degrees", StringConstants.DEGREES_SYMBOL ), 
+public enum AngleUnit
+        implements Labeled< AngleUnit >, Abbreviated< AngleUnit > {
+    DEGREES( "degrees", StringConstants.DEGREES_SYMBOL ),
     RADIANS( "radians", " rad" );
-    
+
     private final String label;
     private final String abbreviation;
-    
+
     AngleUnit( final String pLabel,
                final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public AngleUnit valueOfLabel( final String text ) {
-        return ( AngleUnit ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+    public static AngleUnit defaultValue() {
+        return DEGREES;
     }
 
     @Override
@@ -79,12 +72,9 @@ public enum AngleUnit implements Labeled< AngleUnit >,
 
     @Override
     public AngleUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( AngleUnit ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
-    }
-
-    public static AngleUnit defaultValue() {
-        return DEGREES;
+        return ( AngleUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
     }
 
     @Override
@@ -93,5 +83,16 @@ public enum AngleUnit implements Labeled< AngleUnit >,
         //  its custom label form when a Combo Box is hosted by a Table Cell. It
         //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
+    }
+
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public AngleUnit valueOfLabel( final String text ) {
+        return ( AngleUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                    values() );
     }
 }

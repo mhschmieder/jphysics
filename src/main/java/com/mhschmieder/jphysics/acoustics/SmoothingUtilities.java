@@ -39,7 +39,8 @@ public final class SmoothingUtilities extends Object {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    private SmoothingUtilities() {}
+    private SmoothingUtilities() {
+    }
 
     public static boolean gaussianSmooth( final double in[],
                                           final double out[],
@@ -73,10 +74,10 @@ public final class SmoothingUtilities extends Object {
             final int windowRightEdgeBinIndex = binIndex + 15;
 
             int smoothingIndex = 0;
-            while ( ( windowLeftEdgeBinIndex < numberOfBins )
-                    && ( windowLeftEdgeBinIndex < windowRightEdgeBinIndex ) ) {
+            while ( ( windowLeftEdgeBinIndex < numberOfBins ) && (
+                    windowLeftEdgeBinIndex < windowRightEdgeBinIndex ) ) {
                 out[ binIndex ] += smoothingTable[ binIndex ][ smoothingIndex ]
-                        * in[ windowLeftEdgeBinIndex ];
+                                   * in[ windowLeftEdgeBinIndex ];
                 smoothingRatio += smoothingTable[ binIndex ][ smoothingIndex ];
 
                 windowLeftEdgeBinIndex++;
@@ -91,6 +92,20 @@ public final class SmoothingUtilities extends Object {
         return true;
     }
 
+    public static void makeSmoothingTables( final double[] frequencyBins,
+                                            final int numberOfBins,
+                                            final double thirdOctaveSmoothingTable[][],
+                                            final double sixthOctaveSmoothingTable[][] ) {
+        makeSmoothingTable( frequencyBins,
+                            numberOfBins,
+                            thirdOctaveSmoothingTable,
+                            3 );
+        makeSmoothingTable( frequencyBins,
+                            numberOfBins,
+                            sixthOctaveSmoothingTable,
+                            6 );
+    }
+
     public static void makeSmoothingTable( final double[] frequencyBins,
                                            final int numberOfBins,
                                            final double smoothingTable[][],
@@ -101,11 +116,11 @@ public final class SmoothingUtilities extends Object {
                 powerRatioDb );
 
         // TODO: Review these variable names relative to usage.
-        final double windowCenter = FastMath.exp( MathConstants.LN2 / (
-                octaveDivider * 2.0d ) );
+        final double windowCenter = FastMath.exp(
+                MathConstants.LN2 / ( octaveDivider * 2.0d ) );
         final double lnWindowCenter = FastMath.log( windowCenter );
         final double windowWidth = -MathUtilities.sqr( lnWindowCenter )
-                / FastMath.log( voltageRatio );
+                                   / FastMath.log( voltageRatio );
 
         // NOTE: The window's left and right edge bin indices might be
         // incorrectly named and may even be related to the smoothing table's
@@ -124,9 +139,10 @@ public final class SmoothingUtilities extends Object {
             final double lnReferenceBin = FastMath.log( referenceBin );
 
             int smoothingIndex = 0;
-            while ( ( windowLeftEdgeBinIndex < numberOfBins )
-                    && ( windowLeftEdgeBinIndex < windowRightEdgeBinIndex ) ) {
-                final double windowBin = frequencyBins[ windowLeftEdgeBinIndex ];
+            while ( ( windowLeftEdgeBinIndex < numberOfBins ) && (
+                    windowLeftEdgeBinIndex < windowRightEdgeBinIndex ) ) {
+                final double windowBin
+                        = frequencyBins[ windowLeftEdgeBinIndex ];
                 final double lnWindowBin = FastMath.log( windowBin );
 
                 final double lnF = lnWindowBin - lnReferenceBin;
@@ -141,22 +157,5 @@ public final class SmoothingUtilities extends Object {
                 smoothingIndex++;
             }
         }
-    }
-
-    public static void makeSmoothingTables(
-            final double[] frequencyBins,
-            final int numberOfBins,
-            final double thirdOctaveSmoothingTable[][],
-            final double sixthOctaveSmoothingTable[][] ) {
-        makeSmoothingTable(
-                frequencyBins,
-                numberOfBins,
-                thirdOctaveSmoothingTable,
-                3 );
-        makeSmoothingTable(
-                frequencyBins,
-                numberOfBins,
-                sixthOctaveSmoothingTable,
-                6 );
     }
 }

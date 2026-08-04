@@ -34,32 +34,25 @@ import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
-public enum WeightUnit implements Labeled< WeightUnit >, 
-        Abbreviated< WeightUnit > {
-    METRIC_TONS( "metric tons", " mt" ), 
-    KILOGRAMS( "kilograms", " kg" ), 
-    GRAMS( "grams", " g" ), 
-    POUNDS( "pounds", " lbs" ), 
+public enum WeightUnit
+        implements Labeled< WeightUnit >, Abbreviated< WeightUnit > {
+    METRIC_TONS( "metric tons", " mt" ),
+    KILOGRAMS( "kilograms", " kg" ),
+    GRAMS( "grams", " g" ),
+    POUNDS( "pounds", " lbs" ),
     OUNCES( "ounces", " oz" );
-    
+
     private final String label;
     private final String abbreviation;
-    
+
     WeightUnit( final String pLabel,
                 final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public WeightUnit valueOfLabel( final String text ) {
-        return ( WeightUnit ) EnumUtilities.getLabeledEnumFromLabel( 
-                text, values() );
+    public static WeightUnit defaultValue() {
+        return KILOGRAMS;
     }
 
     @Override
@@ -69,8 +62,9 @@ public enum WeightUnit implements Labeled< WeightUnit >,
 
     @Override
     public WeightUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( WeightUnit ) EnumUtilities
-                .getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+        return ( WeightUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
     }
 
     @Override
@@ -81,7 +75,14 @@ public enum WeightUnit implements Labeled< WeightUnit >,
         return label();
     }
 
-    public static WeightUnit defaultValue() {
-        return KILOGRAMS;
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public WeightUnit valueOfLabel( final String text ) {
+        return ( WeightUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                     values() );
     }
 }
