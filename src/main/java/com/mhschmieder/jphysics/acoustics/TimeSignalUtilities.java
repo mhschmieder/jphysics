@@ -69,7 +69,8 @@ public final class TimeSignalUtilities {
                   sampleIndex < firstUnMeasuredSampleIndex;
                   sampleIndex++ ) {
                 timeAdjustedAmplitudeVector[ sampleIndex ] = amplitudeVector[
-                        sampleIndex + timeSignalAdjustmentSamples ];
+                                                                     sampleIndex
+                                                                     + timeSignalAdjustmentSamples ];
             }
 
             // Zero-fill the unmeasured samples that open up to the right.
@@ -88,7 +89,8 @@ public final class TimeSignalUtilities {
                   sampleIndex > lastUnmeasuredSampleIndex;
                   sampleIndex-- ) {
                 timeAdjustedAmplitudeVector[ sampleIndex ] = amplitudeVector[
-                        sampleIndex + timeSignalAdjustmentSamples ];
+                                                                     sampleIndex
+                                                                     + timeSignalAdjustmentSamples ];
             }
 
             // Zero-fill the unmeasured samples that open up to the left.

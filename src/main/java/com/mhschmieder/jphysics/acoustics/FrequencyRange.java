@@ -37,11 +37,11 @@ public final class FrequencyRange {
     public static final String RELATIVE_BANDWIDTH_DEFAULT
             = RelativeBandwidth.defaultValue().label();
     public static final String OCTAVE_RANGE_WIDE_DEFAULT = "20 Hz To 20 kHz";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     public static final String OCTAVE_RANGE_NARROW_DEFAULT = "80 Hz To 160 Hz";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     public static final String CENTER_FREQUENCY_DISPLAY_DEFAULT = "4 kHz";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
 
     // Determine the nominal default Center Frequency based on Octave Range.
     private RelativeBandwidth relativeBandwidth;
@@ -57,6 +57,7 @@ public final class FrequencyRange {
               OCTAVE_RANGE_WIDE_DEFAULT,
               4000.0d );
     }
+
     // This is the preferred constructor, when all initialization values are
     // known.
     public FrequencyRange( final RelativeBandwidth pRelativeBandwidth,
@@ -66,6 +67,7 @@ public final class FrequencyRange {
         octaveRange = pOctaveRange;
         centerFrequency = pCenterFrequency;
     }
+
     // This is the copy constructor, and is offered in place of clone() to
     // guarantee that the source object is never modified by the new target
     // object created here.

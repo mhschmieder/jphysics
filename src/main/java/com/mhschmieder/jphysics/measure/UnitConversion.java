@@ -148,7 +148,8 @@ public final class UnitConversion {
     public static final double CELSIUS_TO_KELVIN_ADJUSTMENT = 273.15d;
 
     // Conversion ratio for pound-force to newton, as a unit of force.
-    public static final double POUND_FORCE_TO_NEWTONS_RATIO = 4.448_221_615_260_5d;
+    public static final double POUND_FORCE_TO_NEWTONS_RATIO
+            = 4.448_221_615_260_5d;
     public static final double NEWTONS_TO_POUND_FORCE_RATIO = 1.0d
                                                               / POUND_FORCE_TO_NEWTONS_RATIO;
 
@@ -161,7 +162,8 @@ public final class UnitConversion {
 
     // Meters per Second (m/s) is more precise converted to Knots than
     // vice versa, so we initially express that ratio and derive the other.
-    public static final double METERS_PER_SECOND_TO_KNOTS = 1.943_844_492_440_6d;
+    public static final double METERS_PER_SECOND_TO_KNOTS
+            = 1.943_844_492_440_6d;
     public static final double KNOTS_TO_METERS_PER_SECOND = 1.0d
                                                             / METERS_PER_SECOND_TO_KNOTS;
 
