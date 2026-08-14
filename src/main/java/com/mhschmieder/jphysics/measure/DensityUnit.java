@@ -37,9 +37,8 @@ import com.mhschmieder.jcommons.lang.Labeled;
 // TODO: As density relates to mass vs. weight, might need a mass unit also?
 public enum DensityUnit
         implements Labeled< DensityUnit >, Abbreviated< DensityUnit > {
-
-    KILOGRAMS_PER_METER_CUBED( " kilograms per meter cubed", " kg/m³" ),
-    GRAMS_PER_CENTIMETER_CUBED( " grams per centimeter cubed", " g/cm³" );
+    KILOGRAMS_PER_CUBIC_METER( " kilograms per cubic meter", " kg/m³" ),
+    GRAMS_PER_CUBIC_CENTIMETER( " grams per cubic centimeter", " g/cm³" );
 
     private final String label;
     private final String abbreviation;
@@ -51,7 +50,7 @@ public enum DensityUnit
     }
 
     public static DensityUnit defaultValue() {
-        return KILOGRAMS_PER_METER_CUBED;
+        return KILOGRAMS_PER_CUBIC_METER;
     }
 
     @Override

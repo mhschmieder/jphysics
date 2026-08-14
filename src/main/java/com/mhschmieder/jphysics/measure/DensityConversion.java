@@ -40,20 +40,20 @@ public final class DensityConversion {
     }
 
     public static final double
-            GRAMS_PER_CENTIMETER_CUBED_TO_KILOGRAMS_PER_METER_CUBED_RATIO
+            GRAMS_PER_CUBIC_CENTIMETER_TO_KILOGRAMS_PER_CUBIC_METER_RATIO
             = 1_000.0;
     public static final double
-            KILOGRAMS_PER_METER_CUBED_TO_GRAMS_PER_CENTIMETER_CUBED_RATIO = 1.0
-                                                                            / GRAMS_PER_CENTIMETER_CUBED_TO_KILOGRAMS_PER_METER_CUBED_RATIO;
+            KILOGRAMS_PER_CUBIC_METER_TO_GRAMS_PER_CUBIC_CENTIMETER_RATIO = 1.0
+                                                                            / GRAMS_PER_CUBIC_CENTIMETER_TO_KILOGRAMS_PER_CUBIC_METER_RATIO;
 
     private static final String[] ABBREVIATIONS_LIST = {
-            DensityUnit.KILOGRAMS_PER_METER_CUBED.abbreviation(),
-            DensityUnit.GRAMS_PER_CENTIMETER_CUBED.abbreviation()
+            DensityUnit.KILOGRAMS_PER_CUBIC_METER.abbreviation(),
+            DensityUnit.GRAMS_PER_CUBIC_CENTIMETER.abbreviation()
     };
 
     private static final String[] NAMES_LIST = {
-            DensityUnit.KILOGRAMS_PER_METER_CUBED.name(),
-            DensityUnit.GRAMS_PER_CENTIMETER_CUBED.name()
+            DensityUnit.KILOGRAMS_PER_CUBIC_METER.name(),
+            DensityUnit.GRAMS_PER_CUBIC_CENTIMETER.name()
     };
 
     public static String[] getAbbreviationsList() {
@@ -77,19 +77,19 @@ public final class DensityConversion {
         double densityConverted = density;
 
         switch ( oldDensity ) {
-            case KILOGRAMS_PER_METER_CUBED -> {
+            case KILOGRAMS_PER_CUBIC_METER -> {
                 switch ( newDensity ) {
-                    case GRAMS_PER_CENTIMETER_CUBED -> densityConverted
+                    case GRAMS_PER_CUBIC_CENTIMETER -> densityConverted
                                                                =
-                                                               kilogramsPerMeterCubedToGramsPerCentimeterCubed(
+                                                               kilogramsPerCubicMeterToGramsPerCubicCentimeter(
                             density );
                 }
             }
-            case GRAMS_PER_CENTIMETER_CUBED -> {
+            case GRAMS_PER_CUBIC_CENTIMETER -> {
                 switch ( newDensity ) {
-                    case KILOGRAMS_PER_METER_CUBED -> densityConverted
+                    case KILOGRAMS_PER_CUBIC_METER -> densityConverted
                                                               =
-                                                              gramsPerCentimeterCubedToKilogramsPerMeterCubed(
+                                                              gramsPerCubicCentimeterToKilogramsPerCubicMeter(
                             density );
                 }
             }
@@ -98,13 +98,13 @@ public final class DensityConversion {
         return densityConverted;
     }
 
-    public static double gramsPerCentimeterCubedToKilogramsPerMeterCubed( final double densityGramsPerCentimeterCubed ) {
-        return densityGramsPerCentimeterCubed
-               * GRAMS_PER_CENTIMETER_CUBED_TO_KILOGRAMS_PER_METER_CUBED_RATIO;
+    public static double gramsPerCubicCentimeterToKilogramsPerCubicMeter( final double densityGramsPerCubicCentimeter ) {
+        return densityGramsPerCubicCentimeter
+               * GRAMS_PER_CUBIC_CENTIMETER_TO_KILOGRAMS_PER_CUBIC_METER_RATIO;
     }
 
-    public static double kilogramsPerMeterCubedToGramsPerCentimeterCubed( final double densityKilogramsPerMeterCubed ) {
-        return densityKilogramsPerMeterCubed
-               * KILOGRAMS_PER_METER_CUBED_TO_GRAMS_PER_CENTIMETER_CUBED_RATIO;
+    public static double kilogramsPerCubicMeterToGramsPerCubicCentimeter( final double densityKilogramsPerCubicMeter ) {
+        return densityKilogramsPerCubicMeter
+               * KILOGRAMS_PER_CUBIC_METER_TO_GRAMS_PER_CUBIC_CENTIMETER_RATIO;
     }
 }
