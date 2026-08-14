@@ -71,16 +71,16 @@ public enum Altitude {
 
         switch ( this ) {
             case LOW:
-                return "Below " + Integer.toString( lowAltitude ) + " "
+                return "Below " + lowAltitude + ' '
                        //$NON-NLS-1$//$NON-NLS-2$
                        + distanceUnitString;
             case MEDIUM:
-                return "Between " + Integer.toString( lowAltitude ) + " and "
+                return "Between " + lowAltitude + " and "
                        //$NON-NLS-1$ //$NON-NLS-2$
-                       + Integer.toString( highAltitude ) + " " //$NON-NLS-1$
+                       + highAltitude + ' ' //$NON-NLS-1$
                        + distanceUnitString;
             case HIGH:
-                return "Above " + Integer.toString( highAltitude ) + " "
+                return "Above " + highAltitude + ' '
                        //$NON-NLS-1$//$NON-NLS-2$
                        + distanceUnitString;
             default:

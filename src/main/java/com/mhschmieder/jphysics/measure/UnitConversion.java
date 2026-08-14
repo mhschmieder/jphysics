@@ -34,8 +34,8 @@ import com.mhschmieder.jphysics.PhysicsConstants;
 import org.apache.commons.math3.util.FastMath;
 
 /**
- * The <code>UnitConversion</code> class is a container for various unit
- * conversions between common units of measurement.
+ * The {@code UnitConversion} class is a container for various unit conversions
+ * between common units of measurement.
  */
 public final class UnitConversion {
 
@@ -50,7 +50,7 @@ public final class UnitConversion {
     // matrix. This needs further investigation.
     public static final double YARDS_TO_FEET_RATIO = 3.0d;
     public static final double FEET_TO_YARDS_RATIO = 1.0d / YARDS_TO_FEET_RATIO;
-    public static final double FEET_TO_INCHES_RATIO = 12d;
+    public static final double FEET_TO_INCHES_RATIO = 12.0d;
     public static final double INCHES_TO_FEET_RATIO = 1.0d
                                                       / FEET_TO_INCHES_RATIO;
     public static final double YARDS_TO_INCHES_RATIO = YARDS_TO_FEET_RATIO
@@ -70,9 +70,9 @@ public final class UnitConversion {
                                                         / METERS_TO_INCHES_RATIO;
     public static final double FEET_TO_METERS_RATIO = FEET_TO_INCHES_RATIO
                                                       * INCHES_TO_METERS_RATIO;
-    public static final double FEET_TO_CENTIMETERS_RATIO = 100d
+    public static final double FEET_TO_CENTIMETERS_RATIO = 100.0d
                                                            * FEET_TO_METERS_RATIO;
-    public static final double FEET_TO_MILLIMETERS_RATIO = 1000d
+    public static final double FEET_TO_MILLIMETERS_RATIO = 1000.0d
                                                            * FEET_TO_METERS_RATIO;
     public static final double METERS_TO_FEET_RATIO = 1.0d
                                                       / FEET_TO_METERS_RATIO;
@@ -82,9 +82,9 @@ public final class UnitConversion {
                                                            * METERS_TO_FEET_RATIO;
     public static final double YARDS_TO_METERS_RATIO = YARDS_TO_INCHES_RATIO
                                                        * INCHES_TO_METERS_RATIO;
-    public static final double YARDS_TO_CENTIMETERS_RATIO = 100d
+    public static final double YARDS_TO_CENTIMETERS_RATIO = 100.0d
                                                             * YARDS_TO_METERS_RATIO;
-    public static final double YARDS_TO_MILLIMETERS_RATIO = 1000d
+    public static final double YARDS_TO_MILLIMETERS_RATIO = 1000.0d
                                                             * YARDS_TO_METERS_RATIO;
     public static final double METERS_TO_YARDS_RATIO = 1.0d
                                                        / YARDS_TO_METERS_RATIO;
@@ -92,7 +92,7 @@ public final class UnitConversion {
                                                             * METERS_TO_YARDS_RATIO;
     public static final double MILLIMETERS_TO_YARDS_RATIO = 0.001d
                                                             * METERS_TO_YARDS_RATIO;
-    public static final double POUNDS_TO_OUNCES_RATIO = 16d;
+    public static final double POUNDS_TO_OUNCES_RATIO = 16.0d;
     public static final double OUNCES_TO_POUNDS_RATIO = 1.0d
                                                         / POUNDS_TO_OUNCES_RATIO;
     public static final double METRIC_TONS_TO_POUNDS_RATIO = 2204.6232402d;

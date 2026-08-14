@@ -34,6 +34,7 @@ import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
+// TODO: Review whether this should be remodeled as MassUnit. Might need both?
 public enum WeightUnit
         implements Labeled< WeightUnit >, Abbreviated< WeightUnit > {
     METRIC_TONS( "metric tons", " mt" ),

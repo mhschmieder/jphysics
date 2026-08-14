@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020, 2026 Mark Schmieder. All rights reserved.
+ * Copyright (c) 2026 Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,49 +34,24 @@ import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
-/**
- * An enumeration of the most relevant length units for linear distance.
- * <p>
- * NOTE: The labels account for the standard of leaving a space between the
- * numeric value and its associated unit. The utility for making a Combo Box
- * from an enum trims the space; other contexts need the space for separation.
- * NOTE: The "Unitless" field is included because sometimes this is an interim
- * value until units are known, or units weren't specified but we need to track
- * that as distinct from units not initialized within the client code.
- */
-public enum DistanceUnit
-        implements Labeled< DistanceUnit >, Abbreviated< DistanceUnit > {
-    UNITLESS( "unitless", "" ),
-    MILLIMETERS( "millimeters", " mm" ),
-    CENTIMETERS( "centimeters", " cm" ),
-    METERS( "meters", " m" ),
-    INCHES( "inches", " in" ),
-    FEET( "feet", " ft" ),
-    YARDS( "yards", " yd" );
+// TODO: As density relates to mass vs. weight, might need a mass unit also?
+public enum DensityUnit
+        implements Labeled< DensityUnit >, Abbreviated< DensityUnit > {
+
+    KILOGRAMS_PER_METER_CUBED( " kilograms per meter cubed", " kg/m³" ),
+    GRAMS_PER_CENTIMETER_CUBED( " grams per centimeter cubed", " g/cm³" );
 
     private final String label;
     private final String abbreviation;
 
-    DistanceUnit( final String pLabel,
-                  final String pAbbreviation ) {
+    DensityUnit( final String pLabel,
+                 final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    public static DistanceUnit defaultValue() {
-        return METERS;
-    }
-
-    @Override
-    public String abbreviation() {
-        return abbreviation;
-    }
-
-    @Override
-    public DistanceUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( DistanceUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
-                abbreviatedText,
-                values() );
+    public static DensityUnit defaultValue() {
+        return KILOGRAMS_PER_METER_CUBED;
     }
 
     @Override
@@ -93,8 +68,21 @@ public enum DistanceUnit
     }
 
     @Override
-    public DistanceUnit valueOfLabel( final String text ) {
-        return ( DistanceUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
-                                                                       values() );
+    public DensityUnit valueOfLabel( final String pLabel ) {
+        return ( DensityUnit ) EnumUtilities.getLabeledEnumFromLabel( pLabel,
+                                                                      values() );
+    }
+
+    @Override
+    public String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public DensityUnit valueOfAbbreviation( final String pAbbreviatedText ) {
+        return ( DensityUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                pAbbreviatedText,
+                values() );
     }
 }
+

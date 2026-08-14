@@ -87,10 +87,9 @@ public enum TemperatureUnit
 
         // NOTE: Temperature Units are all capitalized, unlike most other
         //  units, as they are named after people.
-        canonicalString = canonicalString.substring( 0, 1 )
-                                         .concat( canonicalString.substring( 1 )
-                                                                 .toLowerCase(
-                                                                         Locale.ENGLISH ) );
+        canonicalString = canonicalString.charAt( 0 )
+                          + canonicalString.substring( 1 )
+                                           .toLowerCase( Locale.ENGLISH );
 
         return canonicalString;
     }
