@@ -57,7 +57,7 @@ public final class UnitConversion {
                                                        * FEET_TO_INCHES_RATIO;
     public static final double INCHES_TO_YARDS_RATIO = 1.0d
                                                        / YARDS_TO_INCHES_RATIO;
-    public static final double METERS_TO_INCHES_RATIO = 39.37007874d;
+    public static final double METERS_TO_INCHES_RATIO = 39.370_078_74d;
     public static final double CENTIMETERS_TO_INCHES_RATIO = 0.01d
                                                              * METERS_TO_INCHES_RATIO;
     public static final double INCHES_TO_CENTIMETERS_RATIO = 1.0d
@@ -72,7 +72,7 @@ public final class UnitConversion {
                                                       * INCHES_TO_METERS_RATIO;
     public static final double FEET_TO_CENTIMETERS_RATIO = 100.0d
                                                            * FEET_TO_METERS_RATIO;
-    public static final double FEET_TO_MILLIMETERS_RATIO = 1000.0d
+    public static final double FEET_TO_MILLIMETERS_RATIO = 1_000.0d
                                                            * FEET_TO_METERS_RATIO;
     public static final double METERS_TO_FEET_RATIO = 1.0d
                                                       / FEET_TO_METERS_RATIO;
@@ -84,7 +84,7 @@ public final class UnitConversion {
                                                        * INCHES_TO_METERS_RATIO;
     public static final double YARDS_TO_CENTIMETERS_RATIO = 100.0d
                                                             * YARDS_TO_METERS_RATIO;
-    public static final double YARDS_TO_MILLIMETERS_RATIO = 1000.0d
+    public static final double YARDS_TO_MILLIMETERS_RATIO = 1_000.0d
                                                             * YARDS_TO_METERS_RATIO;
     public static final double METERS_TO_YARDS_RATIO = 1.0d
                                                        / YARDS_TO_METERS_RATIO;
@@ -92,32 +92,6 @@ public final class UnitConversion {
                                                             * METERS_TO_YARDS_RATIO;
     public static final double MILLIMETERS_TO_YARDS_RATIO = 0.001d
                                                             * METERS_TO_YARDS_RATIO;
-    public static final double POUNDS_TO_OUNCES_RATIO = 16.0d;
-    public static final double OUNCES_TO_POUNDS_RATIO = 1.0d
-                                                        / POUNDS_TO_OUNCES_RATIO;
-    public static final double METRIC_TONS_TO_POUNDS_RATIO = 2204.6232402d;
-    public static final double KILOGRAMS_TO_POUNDS_RATIO = 0.001d
-                                                           * METRIC_TONS_TO_POUNDS_RATIO;
-    public static final double GRAMS_TO_POUNDS_RATIO = 0.001d
-                                                       * KILOGRAMS_TO_POUNDS_RATIO;
-    public static final double POUNDS_TO_GRAMS_RATIO = 1.0d
-                                                       / GRAMS_TO_POUNDS_RATIO;
-    public static final double POUNDS_TO_KILOGRAMS_RATIO = 1.0d
-                                                           / KILOGRAMS_TO_POUNDS_RATIO;
-    public static final double POUNDS_TO_METRIC_TONS_RATIO = 1.0d
-                                                             / METRIC_TONS_TO_POUNDS_RATIO;
-    public static final double METRIC_TONS_TO_OUNCES_RATIO =
-            METRIC_TONS_TO_POUNDS_RATIO * POUNDS_TO_OUNCES_RATIO;
-    public static final double KILOGRAMS_TO_OUNCES_RATIO = 0.001d
-                                                           * METRIC_TONS_TO_OUNCES_RATIO;
-    public static final double GRAMS_TO_OUNCES_RATIO = 0.001d
-                                                       * KILOGRAMS_TO_OUNCES_RATIO;
-    public static final double OUNCES_TO_GRAMS_RATIO = 1.0d
-                                                       / GRAMS_TO_OUNCES_RATIO;
-    public static final double OUNCES_TO_KILOGRAMS_RATIO = 1.0d
-                                                           / KILOGRAMS_TO_OUNCES_RATIO;
-    public static final double OUNCES_TO_METRIC_TONS_RATIO = 1.0d
-                                                             / METRIC_TONS_TO_OUNCES_RATIO;
 
     public static final double ATMOSPHERES_TO_PASCALS_RATIO = 101_325.0d;
     public static final double PASCALS_TO_ATMOSPHERES_RATIO = 1.0d
@@ -168,8 +142,7 @@ public final class UnitConversion {
                                                             / METERS_PER_SECOND_TO_KNOTS;
 
     /**
-     * The default constructor is disabled, as this is a static utilities
-     * class.
+     * The default constructor is disabled, as this is a static utilities class.
      */
     private UnitConversion() {
     }
@@ -629,160 +602,19 @@ public final class UnitConversion {
         return celsiusToFahrenheit( kelvinToCelsius( temperatureKelvin ) );
     }
 
-    // TODO: Use switch statements instead.
-    public static double convertWeight( final double weight,
-                                        final WeightUnit weightUnitOld,
-                                        final WeightUnit weightUnitNew ) {
-        // If the units didn't change, preserve accuracy by avoiding redundant
-        // conversion.
-        if ( weightUnitNew == weightUnitOld ) {
-            return weight;
-        }
-
-        double weightConverted = weight;
-        if ( weightUnitOld == WeightUnit.METRIC_TONS ) {
-            if ( weightUnitNew == WeightUnit.KILOGRAMS ) {
-                weightConverted = weight * 1_000.0d;
-            }
-            else if ( weightUnitNew == WeightUnit.GRAMS ) {
-                weightConverted = weight * 1_000_000.0d;
-            }
-            else if ( weightUnitNew == WeightUnit.POUNDS ) {
-                weightConverted = metricTonsToPounds( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.OUNCES ) {
-                weightConverted = metricTonsToOunces( weight );
-            }
-        }
-        else if ( weightUnitOld == WeightUnit.KILOGRAMS ) {
-            if ( weightUnitNew == WeightUnit.METRIC_TONS ) {
-                weightConverted = weight * 0.001d;
-            }
-            else if ( weightUnitNew == WeightUnit.GRAMS ) {
-                weightConverted = weight * 1_000.0d;
-            }
-            else if ( weightUnitNew == WeightUnit.POUNDS ) {
-                weightConverted = kilogramsToPounds( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.OUNCES ) {
-                weightConverted = kilogramsToOunces( weight );
-            }
-        }
-        else if ( weightUnitOld == WeightUnit.GRAMS ) {
-            if ( weightUnitNew == WeightUnit.METRIC_TONS ) {
-                weightConverted = weight * 0.000_001d;
-            }
-            else if ( weightUnitNew == WeightUnit.KILOGRAMS ) {
-                weightConverted = weight * 0.001d;
-            }
-            else if ( weightUnitNew == WeightUnit.POUNDS ) {
-                weightConverted = gramsToPounds( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.OUNCES ) {
-                weightConverted = gramsToOunces( weight );
-            }
-        }
-        else if ( weightUnitOld == WeightUnit.POUNDS ) {
-            if ( weightUnitNew == WeightUnit.METRIC_TONS ) {
-                weightConverted = poundsToMetricTons( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.KILOGRAMS ) {
-                weightConverted = poundsToKilograms( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.GRAMS ) {
-                weightConverted = poundsToGrams( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.OUNCES ) {
-                weightConverted = poundsToOunces( weight );
-            }
-        }
-        else if ( weightUnitOld == WeightUnit.OUNCES ) {
-            if ( weightUnitNew == WeightUnit.METRIC_TONS ) {
-                weightConverted = ouncesToMetricTons( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.KILOGRAMS ) {
-                weightConverted = ouncesToKilograms( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.GRAMS ) {
-                weightConverted = ouncesToGrams( weight );
-            }
-            else if ( weightUnitNew == WeightUnit.POUNDS ) {
-                weightConverted = ouncesToPounds( weight );
-            }
-        }
-
-        return weightConverted;
+    public static double newtonsToPoundForce( final double newtons ) {
+        return newtons * NEWTONS_TO_POUND_FORCE_RATIO;
     }
 
-    public static double gramsToOunces( final double weightGrams ) {
-        return weightGrams * GRAMS_TO_OUNCES_RATIO;
-    }
-
-    public static double gramsToPounds( final double weightGrams ) {
-        return weightGrams * GRAMS_TO_POUNDS_RATIO;
-    }
-
-    public static double kilogramsToOunces( final double weightKilograms ) {
-        return weightKilograms * KILOGRAMS_TO_OUNCES_RATIO;
-    }
-
-    public static double kilogramsToPounds( final double weightKilograms ) {
-        return weightKilograms * KILOGRAMS_TO_POUNDS_RATIO;
-    }
-
-    public static double metricTonsToOunces( final double weightMetricTons ) {
-        return weightMetricTons * METRIC_TONS_TO_OUNCES_RATIO;
-    }
-
-    public static double metricTonsToPounds( final double weightMetricTons ) {
-        return weightMetricTons * METRIC_TONS_TO_POUNDS_RATIO;
-    }
-
-    public static double ouncesToGrams( final double weightOunces ) {
-        return weightOunces * OUNCES_TO_GRAMS_RATIO;
-    }
-
-    public static double ouncesToKilograms( final double weightOunces ) {
-        return weightOunces * OUNCES_TO_KILOGRAMS_RATIO;
-    }
-
-    public static double ouncesToMetricTons( final double weightOunces ) {
-        return weightOunces * OUNCES_TO_METRIC_TONS_RATIO;
-    }
-
-    public static double ouncesToPounds( final double weightOunces ) {
-        return weightOunces * OUNCES_TO_POUNDS_RATIO;
-    }
-
-    public static double poundsToGrams( final double weightPounds ) {
-        return weightPounds * POUNDS_TO_GRAMS_RATIO;
-    }
-
-    public static double poundsToKilograms( final double weightPounds ) {
-        return weightPounds * POUNDS_TO_KILOGRAMS_RATIO;
-    }
-
-    public static double poundsToMetricTons( final double weightPounds ) {
-        return weightPounds * POUNDS_TO_METRIC_TONS_RATIO;
-    }
-
-    public static double poundsToOunces( final double weightPounds ) {
-        return weightPounds * POUNDS_TO_OUNCES_RATIO;
+    public static double poundForceToNewtons( final double poundForce ) {
+        return poundForce * POUND_FORCE_TO_NEWTONS_RATIO;
     }
 
     public static double kilopascalsToPascals( final double pressureKilopascals ) {
         return pressureKilopascals * KILOPASCALS_TO_PASCALS_RATIO;
     }
 
-    public static double newtonsToPoundForce( final double newtons ) {
-        return newtons * NEWTONS_TO_POUND_FORCE_RATIO;
-    }
-
     public static double pascalsToKilopascals( final double pressurePa ) {
         return pressurePa * PASCALS_TO_KILOPASCALS_RATIO;
-    }
-
-    public static double poundForceToNewtons( final double poundForce ) {
-        return poundForce * POUND_FORCE_TO_NEWTONS_RATIO;
     }
 }

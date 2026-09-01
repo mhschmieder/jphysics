@@ -46,51 +46,51 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
  */
 public final class MassProperties implements MassComputable {
 
-    private static final double WEIGHT_DEFAULT_KG = 0.0d;
+    private static final double MASS_DEFAULT_KG = 0.0d;
     private static final Vector3D COG_IN_OBJECT_COORDINATES_DEFAULT
             = Vector3D.ZERO;
     private static final boolean COG_VALID_DEFAULT = false;
 
-    private double _weightKg = WEIGHT_DEFAULT_KG;
-    private Vector3D _cogInObjectCoordinates
+    private double massKg = MASS_DEFAULT_KG;
+    private Vector3D cogInObjectCoordinates
             = COG_IN_OBJECT_COORDINATES_DEFAULT;
-    private boolean _cogValid = COG_VALID_DEFAULT;
+    private boolean cogValid = COG_VALID_DEFAULT;
 
     // Default constructor.
     public MassProperties() {
-        this( WEIGHT_DEFAULT_KG,
+        this( MASS_DEFAULT_KG,
               COG_IN_OBJECT_COORDINATES_DEFAULT,
               COG_VALID_DEFAULT );
     }
 
-    // Fully qualified constructor.
-    public MassProperties( final double weightKg,
-                           final Vector3D cogInObjectCoordinates,
-                           final boolean cogValid ) {
-        _weightKg = weightKg;
-        _cogInObjectCoordinates = VectorUtilities.copyPoint3D(
-                cogInObjectCoordinates );
-        _cogValid = cogValid;
+    // Partially qualified constructor.
+    public MassProperties( final double pMassKg,
+                           final boolean pCogValid ) {
+        this( pMassKg, COG_IN_OBJECT_COORDINATES_DEFAULT, pCogValid );
     }
 
-    // Partially qualified constructor.
-    public MassProperties( final double weightKg,
-                           final boolean cogValid ) {
-        this( weightKg, COG_IN_OBJECT_COORDINATES_DEFAULT, cogValid );
+    // Fully qualified constructor.
+    public MassProperties( final double pMassKg,
+                           final Vector3D pCogInObjectCoordinates,
+                           final boolean pCogValid ) {
+        massKg = pMassKg;
+        cogInObjectCoordinates = VectorUtilities.copyPoint3D(
+                pCogInObjectCoordinates );
+        cogValid = pCogValid;
     }
 
     @Override
     public Vector3D getCogInObjectCoordinates() {
-        return _cogInObjectCoordinates;
+        return cogInObjectCoordinates;
     }
 
     @Override
-    public double getWeightKg() {
-        return _weightKg;
+    public double getMassKg() {
+        return massKg;
     }
 
     @Override
     public boolean isCogValid() {
-        return _cogValid;
+        return cogValid;
     }
 }

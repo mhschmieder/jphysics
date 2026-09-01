@@ -34,9 +34,8 @@ import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
-// TODO: Review whether this should be remodeled as MassUnit. Might need both?
-public enum WeightUnit
-        implements Labeled< WeightUnit >, Abbreviated< WeightUnit > {
+public enum MassUnit
+        implements Labeled< MassUnit >, Abbreviated< MassUnit > {
     METRIC_TONS( "metric tons", " mt" ),
     KILOGRAMS( "kilograms", " kg" ),
     GRAMS( "grams", " g" ),
@@ -46,13 +45,13 @@ public enum WeightUnit
     private final String label;
     private final String abbreviation;
 
-    WeightUnit( final String pLabel,
-                final String pAbbreviation ) {
+    MassUnit( final String pLabel,
+              final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    public static WeightUnit defaultValue() {
+    public static MassUnit defaultValue() {
         return KILOGRAMS;
     }
 
@@ -62,8 +61,8 @@ public enum WeightUnit
     }
 
     @Override
-    public WeightUnit valueOfAbbreviation( final String abbreviatedText ) {
-        return ( WeightUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+    public MassUnit valueOfAbbreviation( final String abbreviatedText ) {
+        return ( MassUnit ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
                 abbreviatedText,
                 values() );
     }
@@ -82,8 +81,8 @@ public enum WeightUnit
     }
 
     @Override
-    public WeightUnit valueOfLabel( final String text ) {
-        return ( WeightUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
-                                                                     values() );
+    public MassUnit valueOfLabel( final String text ) {
+        return ( MassUnit ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                   values() );
     }
 }

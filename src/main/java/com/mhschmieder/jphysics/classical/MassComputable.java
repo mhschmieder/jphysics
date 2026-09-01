@@ -39,7 +39,7 @@ public interface MassComputable {
     // in SolidWorks, so it is thought of as a getter method vs. a calculator.
     Vector3D getCogInObjectCoordinates();
 
-    double getWeightKg();
+    double getMassKg();
 
     boolean isCogValid();
 }

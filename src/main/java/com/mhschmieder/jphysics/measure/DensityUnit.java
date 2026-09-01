@@ -34,7 +34,6 @@ import com.mhschmieder.jcommons.lang.Abbreviated;
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
-// TODO: As density relates to mass vs. weight, might need a mass unit also?
 public enum DensityUnit
         implements Labeled< DensityUnit >, Abbreviated< DensityUnit > {
     KILOGRAMS_PER_CUBIC_METER( " kilograms per cubic meter", " kg/m³" ),
