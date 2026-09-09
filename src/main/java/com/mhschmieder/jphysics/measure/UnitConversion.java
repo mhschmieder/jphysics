@@ -39,15 +39,14 @@ import org.apache.commons.math3.util.FastMath;
  */
 public final class UnitConversion {
 
-    //
     // ////////////////////////////////////////////////////////////////////////
     // The following is based on "Scientific Unit Conversion" 2nd Ed. by
     // Francois Cardarelli, Springer.
     // TODO: Consider splitting these out into a ConversionFactors interface,
-    // implemented by this class.
+    //  implemented by this class.
     // NOTE: The drawback to this approach is making them private, inaccessible
-    // for tight-loop usage or for usage as scale factors in an affine transform
-    // matrix. This needs further investigation.
+    //  for tight-loop usage or for usage as scale factors in an affine
+    //  transform matrix. This needs further investigation.
     public static final double YARDS_TO_FEET_RATIO = 3.0d;
     public static final double FEET_TO_YARDS_RATIO = 1.0d / YARDS_TO_FEET_RATIO;
     public static final double FEET_TO_INCHES_RATIO = 12.0d;
@@ -127,15 +126,15 @@ public final class UnitConversion {
     public static final double NEWTONS_TO_POUND_FORCE_RATIO = 1.0d
                                                               / POUND_FORCE_TO_NEWTONS_RATIO;
 
-    // Conversion ratios between mass and weight (measured in kilograms).
+    // Conversion ratios between mass and                                                                                                                                                                   weight (measured in kilograms).
     public static final double MASS_TO_WEIGHT_RATIO
             =
             PhysicsConstants.ACCELERATION_OF_GRAVITY_METERS_PER_SECOND_SQUARED;
     public static final double WEIGHT_TO_MASS_RATIO = 1.0d
                                                       / MASS_TO_WEIGHT_RATIO;
 
-    // Meters per Second (m/s) is more precise converted to Knots than
-    // vice versa, so we initially express that ratio and derive the other.
+    // Meters per Second (m/s) is more precise converted to Knots than vice
+    // versa, so we initially express that ratio and derive the other.
     public static final double METERS_PER_SECOND_TO_KNOTS
             = 1.943_844_492_440_6d;
     public static final double KNOTS_TO_METERS_PER_SECOND = 1.0d
