@@ -59,12 +59,12 @@ public enum Altitude {
         final String distanceUnitString = distanceUnit.label();
 
         final int lowAltitude
-                = ( int ) FastMath.round( UnitConversion.convertDistance(
+                = ( int ) FastMath.round( DistanceConversion.convertDistance(
                 PhysicsConstants.ALTITUDE_LOW_METERS,
                 DistanceUnit.METERS,
                 distanceUnit ) );
         final int highAltitude
-                = ( int ) FastMath.round( UnitConversion.convertDistance(
+                = ( int ) FastMath.round( DistanceConversion.convertDistance(
                 PhysicsConstants.ALTITUDE_HIGH_METERS,
                 DistanceUnit.METERS,
                 distanceUnit ) );

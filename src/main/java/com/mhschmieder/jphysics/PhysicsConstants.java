@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.jphysics;
 
+import com.mhschmieder.jphysics.measure.TemperatureConversion;
 import com.mhschmieder.jphysics.measure.TemperatureUnit;
-import com.mhschmieder.jphysics.measure.UnitConversion;
 
 /**
  * Container for physical constants.
@@ -78,9 +78,9 @@ public final class PhysicsConstants {
 
     // Room temperature in degrees Celsius.
     public static final double ROOM_TEMPERATURE_C
-            = UnitConversion.convertTemperature( ROOM_TEMPERATURE_K,
-                                                 TemperatureUnit.KELVIN,
-                                                 TemperatureUnit.CELSIUS );
+            = TemperatureConversion.convertTemperature( ROOM_TEMPERATURE_K,
+                                                        TemperatureUnit.KELVIN,
+                                                        TemperatureUnit.CELSIUS );
 
     // Temperature extrema in Kelvin.
     public static final double TEMPERATURE_MINIMUM_K = 233.15d;
@@ -88,13 +88,13 @@ public final class PhysicsConstants {
 
     // Temperature extrema in degrees Celsius.
     public static final double TEMPERATURE_MINIMUM_C
-            = UnitConversion.convertTemperature( TEMPERATURE_MINIMUM_K,
-                                                 TemperatureUnit.KELVIN,
-                                                 TemperatureUnit.CELSIUS );
+            = TemperatureConversion.convertTemperature( TEMPERATURE_MINIMUM_K,
+                                                        TemperatureUnit.KELVIN,
+                                                        TemperatureUnit.CELSIUS );
     public static final double TEMPERATURE_MAXIMUM_C
-            = UnitConversion.convertTemperature( TEMPERATURE_MAXIMUM_K,
-                                                 TemperatureUnit.KELVIN,
-                                                 TemperatureUnit.CELSIUS );
+            = TemperatureConversion.convertTemperature( TEMPERATURE_MAXIMUM_K,
+                                                        TemperatureUnit.KELVIN,
+                                                        TemperatureUnit.CELSIUS );
 
     // Relative Humidity extrema in percentiles.
     public static final double HUMIDITY_MINIMUM_RELATIVE = 0.0d;
